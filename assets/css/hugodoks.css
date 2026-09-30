@@ -1,0 +1,757 @@
+/* hugodoks — styles layered on top of Pico CSS v2.
+   All custom classes are namespaced .hd-* and colors go through --pico-*
+   variables so both light and dark data-theme modes work. */
+
+:root {
+  /* denser docs typography: ~15px body, all rem sizes scale down */
+  --pico-font-size: 93.75%;
+  --hd-sidebar-width: 17rem;
+  --hd-toc-width: 11rem;
+  --hd-header-height: 3.75rem;
+  --hd-content-max: 85rem;
+}
+
+/* ------- header ------- */
+
+.hd-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  border-bottom: 1px solid var(--pico-muted-border-color);
+  background-color: var(--pico-background-color);
+}
+
+.hd-header nav {
+  padding-block: 0.4rem;
+}
+
+.hd-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: var(--pico-color);
+  white-space: nowrap;
+}
+
+.hd-brand-icon {
+  height: 1.3em;
+  width: auto;
+}
+
+.hd-icon {
+  width: 1.1em;
+  height: 1.1em;
+  vertical-align: -0.18em;
+  display: inline-block;
+  flex: none;
+}
+
+.hd-iconbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  padding: 0.35rem 0.5rem;
+  margin: 0;
+}
+
+.hd-search-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: auto;
+  padding: 0.3rem 0.75rem;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.hd-search-trigger kbd {
+  font-size: 0.75rem;
+}
+
+/* ------- docs layout: sidebar / article / toc ------- */
+
+.hd-docs {
+  display: grid;
+  grid-template-columns: var(--hd-sidebar-width) minmax(0, 1fr) var(--hd-toc-width);
+  gap: 2rem;
+  padding-block: 2rem;
+  align-items: start;
+}
+
+.hd-docs--notoc {
+  grid-template-columns: var(--hd-sidebar-width) minmax(0, 1fr);
+}
+
+/* collapsed TOC: third column shrinks to just the toggle button */
+html.hd-toc-hidden .hd-docs {
+  grid-template-columns: var(--hd-sidebar-width) minmax(0, 1fr) min-content;
+}
+
+html.hd-toc-hidden .hd-toc .hd-toc-title,
+html.hd-toc-hidden .hd-toc nav {
+  display: none;
+}
+
+html.hd-toc-hidden .hd-toc-toggle svg {
+  transform: rotate(180deg);
+}
+
+.hd-toc {
+  position: sticky;
+  top: calc(var(--hd-header-height) + 1rem);
+  font-size: 0.85rem;
+}
+
+.hd-toc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.hd-toc-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--pico-muted-color);
+  margin: 0;
+}
+
+.hd-toc-toggle {
+  padding: 0.25rem;
+  color: var(--pico-muted-color);
+}
+
+.hd-toc-toggle svg {
+  display: block;
+  transition: transform 0.15s ease-in-out;
+}
+
+.hd-toc ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.hd-toc ul ul {
+  padding-left: 1rem;
+}
+
+.hd-toc a {
+  display: block;
+  padding: 0.15rem 0 0.15rem 0.75rem;
+  border-left: 2px solid var(--pico-muted-border-color);
+  color: var(--pico-muted-color);
+  text-decoration: none;
+  line-height: 1.4;
+  overflow-wrap: break-word;
+}
+
+.hd-toc a:hover {
+  color: var(--pico-primary);
+  border-left-color: var(--pico-primary);
+}
+
+/* ------- left sidebar nav ------- */
+
+.hd-sidebar {
+  position: sticky;
+  top: calc(var(--hd-header-height) + 1rem);
+  font-size: 0.9rem;
+}
+
+.hd-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.hd-nav li {
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+
+.hd-nav > ul > li:first-child,
+.hd-nav details > ul > li:first-child {
+  margin-top: 0;
+}
+
+.hd-nav a {
+  display: block;
+  padding: 0.4rem 0.7rem;
+  border-radius: var(--pico-border-radius);
+  color: var(--pico-muted-color);
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hd-nav a:hover {
+  color: var(--pico-color);
+  background-color: var(--pico-muted-border-color);
+}
+
+.hd-nav a.active {
+  color: var(--pico-primary);
+  font-weight: 600;
+}
+
+/* undo Pico accordion styling inside the nav, keep it minimal */
+.hd-nav details {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.hd-nav details > summary {
+  display: flex; /* chevron ::after becomes a trailing item, pinned right */
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  text-align: left;
+  padding: 0.4rem 0.7rem;
+  margin-top: 0.15rem;
+  border-radius: var(--pico-border-radius);
+  font-weight: 600;
+  color: var(--pico-color);
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.hd-nav details > summary:hover {
+  background-color: var(--pico-muted-border-color);
+}
+
+.hd-nav details[open] > summary {
+  margin-bottom: 0;
+  border-bottom: 0;
+}
+
+.hd-nav details > ul {
+  padding-left: 0.9rem;
+  border-left: 1px solid var(--pico-muted-border-color);
+  margin-left: 0.75rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+/* mobile: sidebar becomes a drawer */
+@media (max-width: 1200px) {
+  .hd-docs,
+  .hd-docs--notoc {
+    grid-template-columns: var(--hd-sidebar-width) minmax(0, 1fr);
+  }
+
+  .hd-toc {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .hd-docs,
+  .hd-docs--notoc {
+    display: block;
+  }
+
+  /* sidebar stacks above the article instead of becoming a drawer */
+  .hd-sidebar {
+    position: static;
+    max-height: none;
+  }
+}
+
+/* ------- docs article ------- */
+
+.hd-article > header {
+  margin-bottom: 1.5rem;
+}
+
+.hd-article-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.hd-article-head .hd-article-title {
+  margin-bottom: 0;
+}
+
+/* dropdown opens leftwards so the menu never overflows the right edge */
+.hd-ai-dropdown ul {
+  left: auto;
+  right: 0;
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+}
+
+.hd-article-title {
+  margin-bottom: 0.25rem;
+}
+
+.hd-article-description {
+  color: var(--pico-muted-color);
+  font-size: 1.05rem;
+}
+
+.hd-article pre {
+  overflow-x: auto;
+}
+
+.hd-anchor {
+  margin-left: 0.4rem;
+  text-decoration: none;
+  color: var(--pico-muted-color);
+  opacity: 0;
+  font-weight: 400;
+}
+
+.hd-article h1:hover .hd-anchor,
+.hd-article h2:hover .hd-anchor,
+.hd-article h3:hover .hd-anchor,
+.hd-article h4:hover .hd-anchor,
+.hd-article h5:hover .hd-anchor,
+.hd-article h6:hover .hd-anchor {
+  opacity: 1;
+}
+
+.hd-anchor:hover {
+  color: var(--pico-primary);
+}
+
+/* section index cards */
+.hd-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.hd-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--pico-border-radius);
+  background-color: var(--pico-card-background-color);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease-in-out;
+}
+
+.hd-card:hover {
+  border-color: var(--pico-primary);
+}
+
+.hd-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--pico-color);
+}
+
+.hd-card-desc {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--pico-muted-color);
+}
+
+/* prev / next */
+.hd-pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--pico-muted-border-color);
+  font-size: 0.9rem;
+}
+
+.hd-pager a {
+  text-decoration: none;
+}
+
+.hd-pager-next {
+  margin-left: auto;
+  text-align: right;
+}
+
+.hd-editpage {
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  color: var(--pico-muted-color);
+}
+
+/* ------- hints ------- */
+
+.hd-hint {
+  --hd-hint-color: var(--pico-primary);
+  margin-block: 1.25rem;
+  padding: 0.9rem 1.25rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-left: 0.3rem solid var(--hd-hint-color);
+  border-radius: var(--pico-border-radius);
+  background-color: var(--pico-card-background-color);
+  font-size: 0.95rem;
+}
+
+.hd-hint > :last-child {
+  margin-bottom: 0;
+}
+
+.hd-hint-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--hd-hint-color);
+  margin-bottom: 0.25rem;
+}
+
+.hd-hint--info { --hd-hint-color: var(--pico-primary); }
+.hd-hint--warning { --hd-hint-color: var(--pico-color-amber-500, #d97706); }
+.hd-hint--danger { --hd-hint-color: var(--pico-color-red-500, #dc2626); }
+.hd-hint--success { --hd-hint-color: var(--pico-color-green-500, #16a34a); }
+
+/* ------- steps ------- */
+
+.hd-steps > ol {
+  list-style: none;
+  counter-reset: hd-step;
+  padding: 0;
+  margin: 0;
+}
+
+.hd-steps > ol > li {
+  counter-increment: hd-step;
+  position: relative;
+  padding-left: 3rem;
+  padding-bottom: 1.75rem;
+  margin-bottom: 0;
+}
+
+.hd-steps > ol > li:not(:last-child) {
+  border-left: 1px solid var(--pico-muted-border-color);
+  margin-left: 1rem;
+}
+
+.hd-steps > ol > li::before {
+  content: counter(hd-step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: var(--pico-primary-background);
+  color: var(--pico-primary-inverse, #fff);
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  transform: translateX(-0.25rem);
+}
+
+.hd-steps > ol > li:not(:last-child)::before {
+  left: -1rem;
+  transform: none;
+}
+
+/* ------- tabs ------- */
+
+.hd-tabs {
+  margin-block: 1.25rem;
+}
+
+.hd-tablist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--pico-muted-border-color);
+}
+
+.hd-tab {
+  width: auto;
+  padding: 0.5rem 1rem;
+  margin: 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: var(--pico-border-radius) var(--pico-border-radius) 0 0;
+  background: none;
+  color: var(--pico-muted-color);
+  font-weight: 500;
+}
+
+.hd-tab[aria-selected="true"] {
+  color: var(--pico-primary);
+  border-bottom-color: var(--pico-primary);
+}
+
+.hd-tab:hover {
+  color: var(--pico-color);
+  background: none;
+}
+
+.hd-tabpanel {
+  padding: 1rem 0.25rem;
+}
+
+/* ------- types chips ------- */
+
+.hd-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-block: 0.75rem;
+}
+
+.hd-type {
+  display: inline-block;
+  padding: 0.1rem 0.55rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: 999px;
+  background-color: var(--pico-code-background-color);
+  font-family: var(--pico-font-family-monospace, monospace);
+  font-size: 0.8rem;
+  color: var(--pico-code-color, var(--pico-primary));
+}
+
+/* ------- annotated code ------- */
+
+.hd-annotated {
+  margin-block: 1.25rem;
+}
+
+.hd-annotated .hd-annotations {
+  padding-left: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--pico-muted-color);
+}
+
+/* ------- pagelink ------- */
+
+a.hd-pagelink {
+  display: block;
+  padding: 0.9rem 1.25rem;
+  margin-block: 1rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--pico-border-radius);
+  text-decoration: none;
+  color: inherit;
+}
+
+a.hd-pagelink:hover {
+  border-color: var(--pico-primary);
+}
+
+a.hd-pagelink .hd-pagelink-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+a.hd-pagelink .hd-pagelink-desc {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: var(--pico-muted-color);
+}
+
+/* ------- landing ------- */
+
+.hd-hero {
+  text-align: center;
+  padding-block: 4.5rem 3.5rem;
+}
+
+.hd-hero-badge {
+  display: inline-block;
+  padding: 0.2rem 0.85rem;
+  margin-bottom: 1.25rem;
+  border-radius: 999px;
+  background-color: var(--pico-primary-background);
+  color: var(--pico-primary-inverse, #fff);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.hd-hero-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hd-hero-subtitle {
+  max-width: 42rem;
+  margin: 0 auto 1.75rem;
+  color: var(--pico-muted-color);
+  font-size: 1.15rem;
+}
+
+.hd-hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.hd-hero-ctas a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.hd-hero-info {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--pico-muted-color);
+}
+
+.hd-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--pico-border-radius);
+  background-color: var(--pico-card-background-color);
+}
+
+.hd-features {
+  padding-block: 2.5rem;
+}
+
+.hd-features-head {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.hd-features-head > p {
+  color: var(--pico-muted-color);
+  margin-bottom: 0;
+}
+
+.hd-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  gap: 1.25rem;
+}
+
+.hd-feature {
+  padding: 1.35rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--pico-border-radius);
+  background-color: var(--pico-card-background-color);
+}
+
+.hd-feature-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.hd-feature-title .hd-icon {
+  color: var(--pico-primary);
+}
+
+.hd-feature p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--pico-muted-color);
+}
+
+/* ------- search dialog ------- */
+
+#hd-search-dialog article {
+  width: min(40rem, 95vw);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+#hd-search-input {
+  margin-bottom: 0.75rem;
+}
+
+.hd-search-results {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.hd-search-results li {
+  margin: 0;
+}
+
+.hd-search-results a {
+  display: block;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--pico-border-radius);
+  text-decoration: none;
+  color: inherit;
+}
+
+.hd-search-results a[aria-selected="true"],
+.hd-search-results a:hover {
+  background-color: var(--pico-primary-background);
+  color: var(--pico-primary-inverse, #fff);
+}
+
+.hd-search-results .hd-search-section {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.75;
+}
+
+.hd-search-empty {
+  padding: 1rem 0.75rem;
+  color: var(--pico-muted-color);
+}
+
+/* ------- misc ------- */
+
+.hd-skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background-color: var(--pico-primary-background);
+  color: var(--pico-primary-inverse, #fff);
+}
+
+.hd-skip:focus {
+  left: 0;
+}
+
+.hd-footer {
+  border-top: 1px solid var(--pico-muted-border-color);
+  padding-block: 1.75rem;
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  color: var(--pico-muted-color);
+}
+
+.hd-footer p {
+  margin: 0;
+}
+
+a.hd-paramcallout-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+}

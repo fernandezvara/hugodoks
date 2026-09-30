@@ -1,0 +1,15 @@
+{{- /* Previous / next links within the same section, ordered by weight. */ -}}
+{{ if or .PrevInSection .NextInSection }}
+<nav class="hd-pager" aria-label="Pagination">
+  {{- with .PrevInSection }}
+  <a class="hd-pager-prev" href="{{ .RelPermalink }}">
+    <small>← {{ i18n "previous" | default "Previous" }}</small><br>{{ .Title }}
+  </a>
+  {{ end }}
+  {{- with .NextInSection }}
+  <a class="hd-pager-next" href="{{ .RelPermalink }}">
+    <small>{{ i18n "next" | default "Next" }} →</small><br>{{ .Title }}
+  </a>
+  {{ end -}}
+</nav>
+{{ end -}}

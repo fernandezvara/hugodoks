@@ -1,0 +1,10 @@
+{{/* JS at end of body: theme toggle, tabs, TOC toggle, search modal */}}
+{{ $theme := resources.Get "js/theme.js" }}
+{{ $tabs := resources.Get "js/tabs.js" }}
+{{ $toc := resources.Get "js/toc.js" }}
+{{ $search := resources.Get "js/search.js" }}
+{{ $flex := resources.Get "js/vendor/flexsearch.min.js" }}
+{{ $js := slice $theme $tabs $toc $flex $search | resources.Concat "js/hugodoks.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}"{{ with $js.Data.Integrity }} integrity="{{ . }}"{{ end }} defer></script>
+
+{{ partial "search-modal.html" . }}

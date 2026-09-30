@@ -1,0 +1,19 @@
+{{- /* Banner landing section. Data shape:
+       text, cta: {text, url, icon}, only_when_param (site param that must
+       be set for the banner to render — e.g. a live-example URL).
+       cta.url defaults to that param's value when omitted. */ -}}
+{{- $show := true -}}
+{{- $param := index site.Params (.only_when_param | default "") -}}
+{{- if .only_when_param -}}
+  {{- if not $param }}{{ $show = false }}{{ end -}}
+{{- end -}}
+{{- if $show }}
+<section class="container">
+  <div class="hd-banner" role="note">
+    <div>{{ .text | markdownify }}</div>
+    {{ with .cta }}
+    <a href="{{ .url | default $param }}" role="button">{{ with .icon }}{{ partial "hd-icon.html" . }} {{ end }}{{ .text }}</a>
+    {{ end }}
+  </div>
+</section>
+{{- end -}}

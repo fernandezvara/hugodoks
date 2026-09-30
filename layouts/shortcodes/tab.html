@@ -1,0 +1,10 @@
+{{- /* One panel inside {{< tabs >}}: {{< tab "Title" >}}…{{< /tab >}} */ -}}
+{{- $parent := .Parent -}}
+{{- $key := printf "hd-tabs-%d" $parent.Ordinal -}}
+{{- $titles := .Parent.Page.Scratch.Get $key | default (slice) -}}
+{{- $i := len $titles -}}
+{{- .Parent.Page.Scratch.Set $key ($titles | append (.Get 0 | default (.Get "title" | default "Tab"))) -}}
+<div class="hd-tabpanel" role="tabpanel" id="{{ $key }}-panel-{{ $i }}"
+     aria-labelledby="{{ $key }}-tab-{{ $i }}"{{ if gt $i 0 }} hidden{{ end }}>
+  {{ .Inner | markdownify }}
+</div>

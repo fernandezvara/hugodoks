@@ -1,0 +1,25 @@
+{{- /* Docs three-column shell: left nav + article + right TOC.
+       Callers pass dict { "page": ., "cards": bool }. */ -}}
+{{- $page := .page -}}
+{{- $hasToc := and ($page.Params.toc | default false) (gt (len $page.TableOfContents) 0) -}}
+<div class="container">
+  <div class="hd-docs{{ if not $hasToc }} hd-docs--notoc{{ end }}">
+    {{ partial "docs/sidebar.html" $page }}
+    <main id="main">
+      <article class="hd-article">
+        <header>
+          <div class="hd-article-head">
+            <h1 class="hd-article-title">{{ $page.Title }}</h1>
+            {{ partial "docs/ai-dropdown.html" $page }}
+          </div>
+          {{ with $page.Params.description }}<p class="hd-article-description">{{ . }}</p>{{ end }}
+        </header>
+        {{ $page.Content }}
+        {{ if .cards }}{{ partial "docs/cards.html" $page }}{{ end }}
+      </article>
+      {{ partial "docs/pager.html" $page }}
+      {{ partial "docs/edit-page.html" $page }}
+    </main>
+    {{ if $hasToc }}{{ partial "docs/toc.html" $page }}{{ end }}
+  </div>
+</div>

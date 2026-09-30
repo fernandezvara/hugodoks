@@ -1,0 +1,18 @@
+{{- /* Code block followed by a numbered annotation list:
+       {{< annotated >}}
+       ```lang
+       code
+       ```
+       <!-- annotations -->
+       1. note about the code
+       2. another note
+       {{< /annotated >}} */ -}}
+{{- $parts := split .Inner "<!-- annotations -->" -}}
+<figure class="hd-annotated">
+  {{ index $parts 0 | markdownify }}
+  {{ if gt (len $parts) 1 }}
+  <figcaption class="hd-annotations">
+    {{ index $parts 1 | markdownify }}
+  </figcaption>
+  {{ end }}
+</figure>

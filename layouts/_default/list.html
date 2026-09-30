@@ -1,0 +1,12 @@
+{{ define "main" }}
+<main id="main" class="container">
+  <article>
+    <header>
+      <h1 class="hd-article-title">{{ .Title }}</h1>
+      {{ with .Params.description }}<p class="hd-article-description">{{ . }}</p>{{ end }}
+    </header>
+    {{ .Content }}
+    {{ partial "docs/cards.html" . }}
+  </article>
+</main>
+{{ end }}

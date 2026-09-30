@@ -1,0 +1,18 @@
+# hugodoks theme module configuration.
+# Hugo mounts the theme's assets/, layouts/, static/ and i18n/ dirs
+# automatically; nothing extra is required here.
+
+[markup.highlight]
+  # Emit CSS classes instead of inline styles so the bundled
+  # light/dark Chroma stylesheets (html[data-theme] scoped) apply.
+  noClasses = false
+
+[outputs]
+  # JSON search index alongside HTML on the home page.
+  home = ["html", "rss", "searchindex"]
+
+[outputFormats.searchindex]
+  mediaType = "application/json"
+  baseName = "index"
+  isPlainText = true
+  notAlternative = true

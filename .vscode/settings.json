@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    // Hugo output-format templates are Go templates, not plain data files
+    "*.searchindex.json": "html"
+  }
+}

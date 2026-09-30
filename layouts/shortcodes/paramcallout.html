@@ -1,0 +1,12 @@
+{{- /* Callout rendered only when a site param is set; links to its value.
+       {{< paramcallout param="exampleurl" icon="apps" >}}It's running now:
+       open the example app.{{< /paramcallout >}} */ -}}
+{{- $value := index site.Params (.Get "param") -}}
+{{- with $value }}
+<aside class="hd-hint hd-hint--info hd-paramcallout">
+  <a class="hd-paramcallout-link" href="{{ . }}">
+    {{ with $.Get "icon" }}{{ partial "hd-icon.html" . }}{{ end }}
+    {{ $.Inner | markdownify | replaceRE "</?p>" "" }} →
+  </a>
+</aside>
+{{- end -}}

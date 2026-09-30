@@ -1,0 +1,11 @@
+{{- /* Left docs navigation: collapsible <details> sections under a given
+       root section (default: the "docs" section). Sticky on desktop,
+       stacked above the article under 768px (see .hd-sidebar in hugodoks.css). */ -}}
+{{- $root := site.GetPage (site.Params.docs.navRoot | default "/docs") -}}
+{{- if $root }}
+<aside class="hd-sidebar" aria-label="{{ i18n "docsNav" | default "Documentation" }}">
+  <nav class="hd-nav">
+    {{ partial "docs/nav-tree.html" (dict "section" $root "current" .) }}
+  </nav>
+</aside>
+{{- end -}}

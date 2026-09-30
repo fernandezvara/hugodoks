@@ -1,0 +1,47 @@
+[onThisPage]
+other = "On this page"
+
+[docsNav]
+other = "Documentation"
+
+[overview]
+other = "Overview"
+
+[tocToggle]
+other = "Toggle table of contents"
+
+[search]
+other = "Search"
+
+[searchPlaceholder]
+other = "Search documentation…"
+
+[searchNoResults]
+other = "No results found."
+
+[editPage]
+other = "Edit this page"
+
+[lastUpdated]
+other = "Last updated"
+
+[previous]
+other = "Previous"
+
+[next]
+other = "Next"
+
+[themeToggle]
+other = "Toggle dark/light theme"
+
+[aiAssist]
+other = "Ask AI"
+
+[aiAssistChatGPT]
+other = "Open in ChatGPT"
+
+[aiAssistClaude]
+other = "Open in Claude"
+
+[skipToContent]
+other = "Skip to content"

@@ -1,0 +1,13 @@
+{{- /* Card linking to an internal page, resolved from the content tree:
+       {{< pagelink "/docs/getting-started" >}} */ -}}
+{{- $target := .Get 0 | default (.Get "page") -}}
+{{- with site.GetPage $target }}
+<a class="hd-pagelink" href="{{ .RelPermalink }}">
+  <span class="hd-pagelink-title">
+    {{ partial "hd-icon.html" (.Params.icon | default "article") }}{{ .Title }}
+  </span>
+  {{ with .Params.description }}<p class="hd-pagelink-desc">{{ . }}</p>{{ end }}
+</a>
+{{- else }}
+  {{- warnf "pagelink: page %q not found (page %s)" $target $.Page.Path -}}
+{{- end -}}

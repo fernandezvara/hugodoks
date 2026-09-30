@@ -1,0 +1,13 @@
+name = "hugodoks"
+license = "MIT"
+licenselink = "https://github.com/fernandezvara/hugodoks/blob/main/LICENSE"
+description = "Documentation theme for Hugo built on Pico CSS v2 — three-column docs layout, collapsible sidebar, search and shortcodes."
+homepage = "https://github.com/fernandezvara/hugodoks"
+demosite = ""
+tags = ["documentation", "docs", "pico", "picocss", "minimal", "responsive", "dark", "light", "search", "blog"]
+features = ["search", "i18n", "dark-mode", "shortcodes", "landing-pages", "toc"]
+min_version = "0.154.0"
+
+[author]
+  name = "Antonio Fernández Vara"
+  homepage = "https://github.com/fernandezvara"

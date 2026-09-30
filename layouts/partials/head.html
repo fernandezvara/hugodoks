@@ -1,0 +1,23 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
+{{ with .Params.description | default .Site.Params.description -}}
+<meta name="description" content="{{ . }}">
+{{ end -}}
+<meta name="generator" content="Hugo {{ hugo.Version }}">
+<link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+<script>document.documentElement.dataset.theme = localStorage.getItem("hugodoks-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+if (localStorage.getItem("hugodoks-toc") === "hidden") document.documentElement.classList.add("hd-toc-hidden");</script>
+
+{{/* CSS: vendored Pico v2 + Chroma (light/dark scoped) + hugodoks overrides */}}
+{{ $pico := resources.Get "css/pico.min.css" }}
+{{ $chromaLight := resources.Get "css/chroma-light.css" }}
+{{ $chromaDark := resources.Get "css/chroma-dark.css" }}
+{{ $custom := resources.Get "css/hugodoks.css" }}
+{{ $css := slice $pico $chromaLight $chromaDark $custom | resources.Concat "css/hugodoks.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}"{{ with $css.Data.Integrity }} integrity="{{ . }}"{{ end }}>
+
+{{/* RSS */}}
+{{ with .OutputFormats.Get "rss" -}}
+<link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" href="{{ .RelPermalink }}">
+{{ end -}}

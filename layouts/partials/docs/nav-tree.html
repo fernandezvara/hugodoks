@@ -1,0 +1,30 @@
+{{- /* Recursive docs nav tree.
+       Expects dict: "section" (section Page), "current" (the rendered Page). */ -}}
+{{- $section := .section -}}
+{{- $current := .current -}}
+<ul>
+  {{ range $section.Pages.ByWeight -}}
+    {{ if .IsSection -}}
+      {{ $open := or (eq .RelPermalink $current.RelPermalink) (.IsAncestor $current) }}
+      <li>
+        <details{{ if $open }} open{{ end }}>
+          <summary>
+            {{ with .Params.icon }}{{ partial "hd-icon.html" . }}{{ end }}
+            {{ .Title }}
+          </summary>
+          <ul>
+            <li><a href="{{ .RelPermalink }}"{{ if eq .RelPermalink $current.RelPermalink }} class="active" aria-current="page"{{ end }}>{{ i18n "overview" | default "Overview" }}</a></li>
+          </ul>
+          {{ partial "docs/nav-tree.html" (dict "section" . "current" $current) }}
+        </details>
+      </li>
+    {{ else -}}
+      <li>
+        <a href="{{ .RelPermalink }}"{{ if eq .RelPermalink $current.RelPermalink }} class="active" aria-current="page"{{ end }}>
+          {{- with .Params.icon }}{{ partial "hd-icon.html" . }} {{ end -}}
+          {{ .Title -}}
+        </a>
+      </li>
+    {{ end -}}
+  {{ end -}}
+</ul>

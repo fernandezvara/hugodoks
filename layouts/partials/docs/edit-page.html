@@ -1,0 +1,33 @@
+{{- /* "Edit this page" + last-updated line.
+       Controlled by site params: docs.editPage, docs.lastMod,
+       docs.repoURL, docs.repoBranch, docs.repoContentDir. */ -}}
+{{ $docs := site.Params.docs | default dict -}}
+{{ $edit := $docs.editPage | default false -}}
+{{ $last := $docs.lastMod | default false -}}
+{{ if or (and $edit .File .Path) (and $last (or .Lastmod .GitInfo)) }}
+<div class="hd-editpage">
+  {{ if and $edit .File .Path -}}
+    {{ $repo := $docs.repoURL | default "" }}
+    {{ $branch := $docs.repoBranch | default "main" }}
+    {{ $dir := $docs.repoContentDir | default "content" }}
+    {{ $host := (urls.Parse $repo).Hostname | lower }}
+    {{ $parts := slice $repo }}
+    {{ if strings.Contains $host "gitlab" -}}
+      {{ $parts = $parts | append "-/blob" $branch }}
+    {{ else if strings.Contains $host "bitbucket" -}}
+      {{ $parts = $parts | append "src" $branch }}
+    {{ else -}}
+      {{ $parts = $parts | append "blob" $branch }}
+    {{ end -}}
+    {{ $parts = $parts | append $dir .File.Path }}
+    {{ $url := replaceRE "(https?://)|(/)+" "$1$2" (delimit $parts "/") }}
+    <a href="{{ $url }}" rel="noopener" target="_blank">{{ partial "hd-icon.html" "code" }} {{ i18n "editPage" | default "Edit this page" }}</a>
+    {{ if $last }} · {{ end -}}
+  {{ end -}}
+  {{ if $last -}}
+    {{ $date := .Lastmod -}}
+    {{ with .GitInfo }}{{ $date = .AuthorDate }}{{ end -}}
+    {{ i18n "lastUpdated" | default "Last updated" }} {{ $date.Format "02 Jan 2006" }}
+  {{ end -}}
+</div>
+{{ end -}}

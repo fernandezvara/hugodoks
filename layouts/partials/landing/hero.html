@@ -1,0 +1,15 @@
+{{- /* Hero landing section. Data shape:
+       badge, title, subtitle, cta: [{icon,text,url,style}], info */ -}}
+<section class="hd-hero container">
+  {{ with .badge }}<span class="hd-hero-badge">{{ . }}</span>{{ end }}
+  <h1 class="hd-hero-title">{{ .title }}</h1>
+  {{ with .subtitle }}<p class="hd-hero-subtitle">{{ . | markdownify }}</p>{{ end }}
+  <div class="hd-hero-ctas">
+    {{ range .cta }}
+    <a href="{{ .url }}" role="button"{{ if eq .style "secondary" }} class="secondary"{{ else if eq .style "contrast" }} class="contrast"{{ end }}{{ if .outline }} class="outline"{{ end }}{{ if strings.HasPrefix .url "http" }} rel="noopener"{{ end }}>
+      {{ with .icon }}{{ partial "hd-icon.html" . }}{{ end }}{{ .text }}
+    </a>
+    {{ end }}
+  </div>
+  {{ with .info }}<p class="hd-hero-info">{{ . | markdownify }}</p>{{ end }}
+</section>

@@ -1,0 +1,26 @@
+{{- /* "Ask AI" dropdown for the docs article header: prefilled ChatGPT/Claude
+       links pointing at the current page. Uses Pico's details.dropdown —
+       native <details>, no JS. Params (all under docs):
+         aiAssist      — show the dropdown
+         aiAssistIcon  — icon dictionary name or .svg path in assets/ (optional)
+         aiAssistLabel — summary text (defaults to i18n aiAssist = "Ask AI") */ -}}
+{{- if site.Params.docs.aiAssist -}}
+{{- $prompt := printf "Read this page and answer my questions: %s" .Permalink -}}
+{{- $label := site.Params.docs.aiAssistLabel | default (i18n "aiAssist" | default "Ask AI") -}}
+<details class="dropdown hd-ai-dropdown">
+  <summary>
+    {{- with site.Params.docs.aiAssistIcon }}
+      {{- if strings.HasSuffix . ".svg" }}
+        {{- with resources.Get . }}<img class="hd-icon" src="{{ .RelPermalink }}" alt="">{{ end }}
+      {{- else }}
+        {{- partial "hd-icon.html" . }}
+      {{- end }}
+    {{- end }}
+    {{ $label }}
+  </summary>
+  <ul>
+    <li><a href="https://chatgpt.com/?q={{ $prompt }}" target="_blank" rel="noopener">{{ i18n "aiAssistChatGPT" | default "Open in ChatGPT" }}</a></li>
+    <li><a href="https://claude.ai/new?q={{ $prompt }}" target="_blank" rel="noopener">{{ i18n "aiAssistClaude" | default "Open in Claude" }}</a></li>
+  </ul>
+</details>
+{{- end -}}

@@ -1,0 +1,24 @@
+{{ define "main" }}
+<main id="main">
+  {{/* Landing sections from site.Data.landing, ordered by weight */}}
+  {{ $sections := site.Data.landing.sections | default (dict) }}
+  {{ $names := slice }}
+  {{ range $name, $cfg := $sections }}
+    {{ $names = $names | append $name }}
+  {{ end }}
+  {{ $ordered := sort $names "value" }}
+  {{ $weighted := slice }}
+  {{ range $names }}
+    {{ $cfg := index $sections . }}
+    {{ if $cfg.enable | default false }}
+      {{ $weighted = $weighted | append (dict "name" . "weight" ($cfg.weight | default 100) "cfg" $cfg) }}
+    {{ end }}
+  {{ end }}
+  {{ range sort $weighted "weight" }}
+    {{ partial (printf "landing/%s.html" .cfg.template) .cfg }}
+  {{ end }}
+  {{ with .Content }}
+  <div class="container">{{ . }}</div>
+  {{ end }}
+</main>
+{{ end }}

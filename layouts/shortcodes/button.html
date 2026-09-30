@@ -1,0 +1,8 @@
+{{- /* Link rendered as a Pico button:
+       {{&lt; button href="docs/" style="secondary" icon="rocket_launch" outline &gt;}}Text{{&lt; /button &gt;}} */ -}}
+{{- $href := .Get "href" | default "#" -}}
+{{- $classes := trim (delimit (slice (.Get "style") (cond (.Get "outline") "outline" "")) " ") " " -}}
+<a href="{{ $href }}" role="button"
+   {{- with $classes }} class="{{ . }}"{{ end -}}
+   {{- if strings.HasPrefix $href "http" }} rel="noopener"{{ end -}}
+>{{- with .Get "icon" }}{{ partial "hd-icon.html" . }} {{ end }}{{ .Inner | markdownify | replaceRE "</?p>" "" }}</a>

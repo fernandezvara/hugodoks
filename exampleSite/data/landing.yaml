@@ -1,0 +1,89 @@
+# Landing sections rendered on the home page by hugodoks, ordered by weight.
+# Each section picks a partial via `template`: hero | features | banner.
+
+sections:
+
+  hero:
+    enable: true
+    weight: 10
+    template: hero
+
+    badge: "v0.1.0 · a documentation theme for Hugo"
+    title: "hugodoks"
+    subtitle: Documentation sites built on **Pico CSS v2**. A three-column docs layout with collapsible sidebar, client-side search, dark and light themes — and **no Node.js**, no build pipeline.
+
+    cta:
+      - text: "Get started"
+        icon: rocket_launch
+        url: "docs/getting-started/"
+      - text: "Shortcode gallery"
+        icon: code
+        url: "docs/shortcodes/"
+        style: secondary
+        outline: true
+      - text: "GitHub"
+        icon: code
+        url: "https://github.com/fernandezvara/hugodoks"
+        style: contrast
+        outline: true
+
+    info: "**Open source**, MIT licensed. This very site is built with hugodoks — the demo and the documentation are the same thing."
+
+  liveExample:
+    enable: true
+    weight: 15
+    template: banner
+
+    # Only rendered when the site param named here is set. Deploy previews or
+    # live demos can set it with e.g. HUGO_PARAMS_EXAMPLEURL at build time.
+    only_when_param: exampleurl
+    text: "**A live deployment URL was configured at build time.** This banner only renders because the `exampleurl` site param is set — see `paramcallout` for the same trick inside pages."
+    cta:
+      text: "Open it"
+      icon: rocket_launch
+      # url defaults to the value of only_when_param
+
+  features:
+    enable: true
+    weight: 20
+    template: features
+
+    title: What you get
+    subtitle: Everything a documentation site needs, built on semantic HTML and Hugo's native asset pipeline.
+
+    items:
+      - title: Built on Pico CSS v2
+        icon: article
+        description: "Semantic, mostly classless styling out of the box. Customize the whole look by overriding `--pico-*` CSS variables — no utility classes, no other framework."
+
+      - title: Three-column docs layout
+        icon: account_tree
+        description: "Sticky navigation tree on the left, article in the center, an \"On this page\" TOC on the right. Sidebars collapse into a drawer under 768px."
+
+      - title: Collapsible nav sections
+        icon: folder_open
+        description: "Content sections become `<details>` accordions that auto-open on the active page. Order by `weight`, label icons from front matter."
+
+      - title: Client-side search
+        icon: search
+        description: "A FlexSearch-powered modal (Ctrl K) over an `index.json` generated at build time. No server, no external service."
+
+      - title: Dark and light themes
+        icon: settings
+        description: "Follows `prefers-color-scheme`, toggled via Pico's `data-theme` attribute and persisted in `localStorage` — no flash of wrong theme."
+
+      - title: Nine docs shortcodes
+        icon: code
+        description: "Hints, buttons, tabs, steps, columns, annotated code, page-link cards, type badges and conditional callouts — all Pico-flavored."
+
+      - title: Landing pages from YAML
+        icon: apps
+        description: "Compose the home page from `data/landing.yaml`: hero, feature grid and banner sections ordered by weight, no templates to touch."
+
+      - title: No Node.js toolchain
+        icon: terminal
+        description: "Plain vanilla JS and Hugo Pipes. The whole toolchain is a single dockerized `hugo` command — `make serve` and you're writing docs."
+
+      - title: Accessible and fast
+        icon: shield
+        description: "Semantic landmarks, keyboard-navigable nav and search, WCAG-targeted Pico v2 colors, fingerprinted assets and no render-blocking CDN."

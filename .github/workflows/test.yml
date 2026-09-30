@@ -1,0 +1,17 @@
+name: test
+
+# Every commit and PR must prove the exampleSite still builds and the
+# rendered-HTML assertions pass (make test → exampleSite/tests/test.sh,
+# hugo inside docker.io/hugomods/hugo:exts).
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build site and run integration tests
+        run: make test

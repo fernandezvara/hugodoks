@@ -1,0 +1,6 @@
+{{- /* Inline data-type badges: {{< types >}}string | number | array{{< /types >}} */ -}}
+<div class="hd-types">
+  {{ range split (.Inner | plainify | chomp) "|" }}
+  <code class="hd-type">{{ . | strings.TrimSpace }}</code>
+  {{ end }}
+</div>

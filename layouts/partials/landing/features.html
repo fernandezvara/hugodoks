@@ -1,0 +1,16 @@
+{{- /* Feature grid landing section. Data shape:
+       title, subtitle, items: [{icon, title, description}] */ -}}
+<section class="hd-features container">
+  <header class="hd-features-head">
+    <h2>{{ .title }}</h2>
+    {{ with .subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+  </header>
+  <div class="hd-features-grid">
+    {{ range .items }}
+    <div class="hd-feature">
+      <p class="hd-feature-title">{{ partial "hd-icon.html" (.icon | default "article") }} {{ .title }}</p>
+      <p>{{ .description | markdownify }}</p>
+    </div>
+    {{ end }}
+  </div>
+</section>

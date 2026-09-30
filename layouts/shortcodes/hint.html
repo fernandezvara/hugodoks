@@ -1,0 +1,10 @@
+{{- /* Callout box: {{< hint warning >}}…{{< /hint >}}
+       Styles: info (default), warning, danger, success. */ -}}
+{{- $style := .Get 0 | default "info" -}}
+{{- if not (in (slice "info" "warning" "danger" "success") $style) -}}
+  {{- $style = "info" -}}
+{{- end -}}
+<aside class="hd-hint hd-hint--{{ $style }}">
+  <p class="hd-hint-title">{{ partial "hd-icon.html" $style }}{{ $style | title }}</p>
+  {{ .Inner | markdownify }}
+</aside>

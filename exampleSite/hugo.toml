@@ -1,0 +1,64 @@
+baseURL = "https://fernandezvara.github.io/hugodoks/"
+languageCode = "en-us"
+title = "hugodoks"
+# enableGitInfo = true — uncomment when this site is built inside a git repo.
+
+[markup.goldmark.renderer]
+  unsafe = false
+
+[markup.highlight]
+  # Chroma emits classes; colors come from the theme's
+  # html[data-theme]-scoped stylesheets.
+  noClasses = false
+
+[markup.tableOfContents]
+  startLevel = 2
+  endLevel = 3
+
+[module]
+  [[module.imports]]
+    path = "github.com/fernandezvara/hugodoks"
+
+# Emit /index.json for the client-side search (the theme defines the
+# "searchindex" output format; outputs can't be merged from a theme).
+[outputs]
+  home = ["html", "rss", "searchindex"]
+
+[params]
+  description = "A documentation theme for Hugo, built on Pico CSS v2"
+
+  # Set by the local docker-compose stack; enables the live-example
+  # banner on the home page and paramcallout links in the docs.
+  # exampleurl = "https://localhost:8443/example/"
+
+  [params.docs]
+    # Left sidebar nav root (defaults to /docs).
+    # navRoot = "/docs"
+    editPage = true
+    lastMod = true
+    aiAssist = true
+    aiAssistIcon = "auto_awesome"
+    repoURL = "https://github.com/fernandezvara/hugodoks"
+    repoBranch = "main"
+    repoContentDir = "exampleSite/content"
+
+  [params.brand]
+    icon = "book"
+
+  [params.footer]
+    copyright = "© 2026 hugodoks contributors · [MIT License](https://github.com/fernandezvara/hugodoks/blob/main/LICENSE)"
+
+  [params.social]
+    github = "fernandezvara/hugodoks"
+
+[menu]
+  [[menu.primary]]
+    name = "Docs"
+    pageRef = "/docs"
+    identifier = "docs"
+    weight = 10
+  [[menu.primary]]
+    name = "GitHub"
+    url = "https://github.com/fernandezvara/hugodoks"
+    identifier = "github"
+    weight = 20

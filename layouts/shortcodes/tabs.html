@@ -1,0 +1,20 @@
+{{- /* Tabbed panels:
+       {{< tabs >}}
+         {{< tab "First" >}}…{{< /tab >}}
+         {{< tab "Second" >}}…{{< /tab >}}
+       {{< /tabs >}}
+       Inner tab shortcodes register their titles on Page.Scratch while
+       .Inner renders; the nav row is emitted afterwards. */ -}}
+{{- $id := .Ordinal -}}
+{{- $key := printf "hd-tabs-%d" $id -}}
+{{- $panels := .Inner -}}
+{{- $titles := .Page.Scratch.Get $key | default (slice) -}}
+<div class="hd-tabs" id="{{ $key }}">
+  <div class="hd-tablist" role="tablist">
+    {{ range $i, $title := $titles }}
+    <button class="hd-tab" role="tab" id="{{ $key }}-tab-{{ $i }}"
+            aria-controls="{{ $key }}-panel-{{ $i }}" aria-selected="{{ eq $i 0 }}">{{ $title }}</button>
+    {{ end }}
+  </div>
+  {{ $panels }}
+</div>

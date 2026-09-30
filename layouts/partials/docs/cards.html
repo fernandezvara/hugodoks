@@ -1,0 +1,14 @@
+{{- /* Child pages/sections of a docs section rendered as icon cards. */ -}}
+{{ with .Pages.ByWeight }}
+<div class="hd-cards">
+  {{ range . }}
+  <a class="hd-card" href="{{ .RelPermalink }}">
+    <span class="hd-card-title">
+      {{ partial "hd-icon.html" (.Params.icon | default "article") }}
+      {{ .Title }}
+    </span>
+    <p class="hd-card-desc">{{ .Params.description | default .Summary | markdownify }}</p>
+  </a>
+  {{ end }}
+</div>
+{{ end -}}
