@@ -305,6 +305,76 @@ html.hd-toc-hidden .hd-toc-toggle svg {
   overflow-x: auto;
 }
 
+/* ------- code copy button (js/copy.js) ------- */
+
+.hd-article .highlight,
+.hd-article .hd-code {
+  position: relative;
+}
+
+.hd-copy {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--pico-border-radius);
+  background-color: var(--pico-card-background-color, var(--pico-background-color));
+  color: var(--pico-muted-color);
+  box-shadow: none;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.hd-copy .hd-icon {
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+}
+
+.highlight:hover .hd-copy,
+.hd-code:hover .hd-copy,
+.hd-copy:focus-visible,
+.hd-copy--done,
+.hd-copy--failed {
+  opacity: 1;
+}
+
+.hd-copy:hover {
+  color: var(--pico-primary);
+  border-color: var(--pico-primary);
+}
+
+.hd-copy--done {
+  color: var(--pico-ins-color, var(--pico-primary));
+}
+
+.hd-copy--failed {
+  color: var(--pico-del-color, var(--pico-primary));
+}
+
+/* Touch devices have no hover: keep the button visible. */
+@media (hover: none) {
+  .hd-copy {
+    opacity: 1;
+  }
+}
+
+.hd-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .hd-anchor {
   margin-left: 0.4rem;
   text-decoration: none;

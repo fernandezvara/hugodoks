@@ -1,10 +1,13 @@
-{{/* JS at end of body: theme toggle, tabs, TOC toggle, search modal */}}
+{{/* JS at end of body: theme toggle, tabs, code copy buttons, TOC toggle, search modal */}}
 {{ $theme := resources.Get "js/theme.js" }}
 {{ $tabs := resources.Get "js/tabs.js" }}
+{{ $copy := resources.Get "js/copy.js" }}
 {{ $toc := resources.Get "js/toc.js" }}
 {{ $search := resources.Get "js/search.js" }}
 {{ $flex := resources.Get "js/vendor/flexsearch.min.js" }}
-{{ $js := slice $theme $tabs $toc $flex $search | resources.Concat "js/hugodoks.js" | minify | fingerprint }}
+{{ $js := slice $theme $tabs $copy $toc $flex $search | resources.Concat "js/hugodoks.js" | minify | fingerprint }}
 <script src="{{ $js.RelPermalink }}"{{ with $js.Data.Integrity }} integrity="{{ . }}"{{ end }} defer></script>
+
+<template id="hd-copy-i18n" data-copy="{{ i18n "copyCode" | default "Copy" }}" data-copied="{{ i18n "copiedCode" | default "Copied" }}" data-failed="{{ i18n "copyFailed" | default "Copy failed" }}"></template>
 
 {{ partial "search-modal.html" . }}

@@ -45,3 +45,12 @@ other = "Open in Claude"
 
 [skipToContent]
 other = "Skip to content"
+
+[copyCode]
+other = "Copy"
+
+[copiedCode]
+other = "Copied"
+
+[copyFailed]
+other = "Copy failed"

@@ -82,6 +82,8 @@ assert_contains "$LEAF" 'class="?hd-anchor'                   "heading anchors"
 
 CODEPAGE="$OUT/docs/getting-started/index.html"
 assert_contains "$CODEPAGE" 'class="?chroma'                  "code blocks use Chroma classes"
+assert_contains "$CODEPAGE" 'id="?hd-copy-i18n'              "copy button labels rendered"
+assert_contains "$OUT/index.html" 'id="?hd-copy-i18n'          "copy labels on every page"
 assert_absent "$CODEPAGE" 'background-color:#272822'          "no inline dark code background"
 
 echo "== shortcodes =="
@@ -116,6 +118,8 @@ assert_contains "$OUT/index.html" 'rel="?stylesheet'          "stylesheet linked
 [ -f "$OUT/favicon.svg" ] && ok "favicon copied" || fail "favicon copied"
 ls "$OUT"/css/hugodoks.*.css  >/dev/null 2>&1 && ok "fingerprinted CSS"  || fail "fingerprinted CSS"
 ls "$OUT"/js/hugodoks.*.js    >/dev/null 2>&1 && ok "fingerprinted JS"   || fail "fingerprinted JS"
+JS="$OUT/$(grep -oE 'js/hugodoks[^"]*\.js' "$OUT/index.html" | head -1)"
+assert_contains "$JS" 'hd-copy'                              "copy button script bundled"
 [ -f "$OUT/404.html" ]       && ok "404 page built"           || fail "404 page built"
 
 echo "== build with exampleurl =="

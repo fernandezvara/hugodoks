@@ -33,6 +33,10 @@ Search needs `outputs.home = [..., "searchindex"]` — see [Configuration](../co
 
 The header toggle flips Pico's `data-theme` attribute; the choice persists in `localStorage` under `hugodoks-theme`. A tiny inline script in `<head>` applies the stored (or OS-preferred) theme before first paint, so there's no flash of the wrong theme. Code blocks follow along: the theme ships Chroma stylesheets scoped to `html[data-theme]`.
 
+## Code blocks
+
+Every code block gets a **Copy** button in its top-right corner (visible on hover or keyboard focus, always on touch screens). It copies the block's plain text — line numbers excluded — through the Clipboard API, with a fallback for non-secure contexts, and announces the result to screen readers. Without JavaScript, code blocks are plain blocks. The labels come from the `copyCode`, `copiedCode` and `copyFailed` i18n keys.
+
 ## Page chrome
 
 - **Prev/next pager** — links to the previous and next pages within the same section, ordered by `weight`.
