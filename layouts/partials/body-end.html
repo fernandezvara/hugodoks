@@ -4,7 +4,7 @@
 {{ $copy := resources.Get "js/copy.js" }}
 {{ $toc := resources.Get "js/toc.js" }}
 {{ $search := resources.Get "js/search.js" }}
-{{ $flex := resources.Get "js/vendor/flexsearch.min.js" }}
+{{ $flex := resources.Get "js/lib/flexsearch.min.js" }}
 {{ $js := slice $theme $tabs $copy $toc $flex $search | resources.Concat "js/hugodoks.js" | minify | fingerprint }}
 <script src="{{ $js.RelPermalink }}"{{ with $js.Data.Integrity }} integrity="{{ . }}"{{ end }} defer></script>
 

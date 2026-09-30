@@ -113,6 +113,11 @@ echo "== lotus purge =="
 if [ -d "$SITE/layouts" ]; then fail "exampleSite/layouts removed"; else ok "exampleSite/layouts removed"; fi
 assert_absent "$OUT" 'material-icons|prismjs|btn-primary|col-md-|lotusdocs' "no Lotus/Bootstrap artifacts in output"
 
+echo "== module packaging =="
+# Go module zips silently drop any directory named "vendor": a theme asset
+# there builds locally (replace) but is missing for every consumer.
+if git -C "$ROOT" ls-files | grep -Eq '(^|/)vendor/'; then fail "no vendor/ directory in the theme"; else ok "no vendor/ directory in the theme"; fi
+
 echo "== static assets =="
 assert_contains "$OUT/index.html" 'rel="?stylesheet'          "stylesheet linked"
 [ -f "$OUT/favicon.svg" ] && ok "favicon copied" || fail "favicon copied"
