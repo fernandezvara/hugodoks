@@ -487,10 +487,12 @@ html.hd-toc-hidden .hd-toc-toggle svg {
   margin-bottom: 0.25rem;
 }
 
-.hd-hint--info { --hd-hint-color: var(--pico-primary); }
+.hd-hint--info,
+.hd-hint--note { --hd-hint-color: var(--pico-primary); }
 .hd-hint--warning { --hd-hint-color: var(--pico-color-amber-500, #d97706); }
 .hd-hint--danger { --hd-hint-color: var(--pico-color-red-500, #dc2626); }
-.hd-hint--success { --hd-hint-color: var(--pico-color-green-500, #16a34a); }
+.hd-hint--success,
+.hd-hint--tip { --hd-hint-color: var(--pico-color-green-500, #16a34a); }
 
 /* ------- steps ------- */
 

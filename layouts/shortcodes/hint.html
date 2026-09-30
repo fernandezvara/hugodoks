@@ -1,10 +1,24 @@
-{{- /* Callout box: {{< hint warning >}}…{{< /hint >}}
-       Styles: info (default), warning, danger, success. */ -}}
-{{- $style := .Get 0 | default "info" -}}
-{{- if not (in (slice "info" "warning" "danger" "success") $style) -}}
+{{- /* Callout box.
+
+       Positional (style only):   {{< hint warning >}}…{{< /hint >}}
+       Named (style and title):   {{< hint style="tip" title="Best practice" >}}…{{< /hint >}}
+
+       Styles: info (default), note, tip, warning, danger, success. Unknown
+       styles fall back to info. The title defaults to the style's name; `title`
+       replaces it (for example "Already done for you"). The body is Markdown. */ -}}
+{{- $style := "info" -}}
+{{- $title := "" -}}
+{{- if .IsNamedParams -}}
+  {{- $style = .Get "style" | default "info" -}}
+  {{- $title = .Get "title" | default "" -}}
+{{- else -}}
+  {{- $style = .Get 0 | default "info" -}}
+{{- end -}}
+{{- if not (in (slice "info" "note" "tip" "warning" "danger" "success") $style) -}}
   {{- $style = "info" -}}
 {{- end -}}
+{{- $icon := index (dict "info" "info" "note" "info" "tip" "tip" "warning" "warning" "danger" "danger" "success" "success") $style -}}
 <aside class="hd-hint hd-hint--{{ $style }}">
-  <p class="hd-hint-title">{{ partial "hd-icon.html" $style }}{{ $style | title }}</p>
+  <p class="hd-hint-title">{{ partial "hd-icon.html" $icon }}{{ $title | default ($style | title) }}</p>
   {{ .Inner | markdownify }}
 </aside>

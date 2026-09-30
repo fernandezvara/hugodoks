@@ -1,15 +1,29 @@
 ---
 title: "hint"
-description: "Callout boxes for info, warning, danger and success notes."
+description: "Callout boxes: note, tip, warning, danger, info and success, with optional custom titles."
 icon: "info"
 weight: 10
 toc: true
 ---
 
-`hint` renders a titled callout box. The style is the first positional parameter — `info` (default), `warning`, `danger` or `success` — and unknown styles fall back to `info`. The body is Markdown.
+`hint` renders a titled callout box with a Markdown body. Give the style alone, positionally, or the style and a title by name:
 
-{{< hint info >}}
-**Info** — the default. Neutral context the reader should know.
+```markdown
+{{</* hint warning */>}}Something that can bite if ignored.{{</* /hint */>}}
+
+{{</* hint style="tip" title="Best practice" */>}}The recommended way.{{</* /hint */>}}
+```
+
+Shortcode parameters are either all positional or all named, so a custom title needs `style="…"` too. Styles: `info` (default), `note`, `tip`, `warning`, `danger`, `success`; unknown styles fall back to `info`. The title defaults to the style's name.
+
+## Styles
+
+{{< hint note >}}
+**Note** — something easy to miss that changes how a feature is used, and is harmless.
+{{< /hint >}}
+
+{{< hint style="tip" title="Best practice" >}}
+**Tip** — the recommended way, or what is already done for you. Use `title` to say which: "Best practice", "Already done for you".
 {{< /hint >}}
 
 {{< hint warning >}}
@@ -20,14 +34,10 @@ toc: true
 **Danger** — destructive actions and security risks.
 {{< /hint >}}
 
-{{< hint success >}}
-**Success** — confirm a step worked or recommend the happy path.
+{{< hint info >}}
+**Info** — neutral context. Kept for compatibility; `note` is the same look with a clearer name.
 {{< /hint >}}
 
-## Source
-
-```markdown
-{{</* hint warning */>}}
-**Warning** — something that can bite if ignored.
-{{</* /hint */>}}
-```
+{{< hint success >}}
+**Success** — confirm a step worked.
+{{< /hint >}}
