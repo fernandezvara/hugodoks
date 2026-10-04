@@ -86,6 +86,10 @@ assert_contains "$CODEPAGE" 'id="?hd-copy-i18n'              "copy button labels
 assert_contains "$OUT/index.html" 'id="?hd-copy-i18n'          "copy labels on every page"
 assert_absent "$CODEPAGE" 'background-color:#272822'          "no inline dark code background"
 
+PAGERPAGE="$OUT/docs/configuration/index.html"
+assert_contains "$PAGERPAGE" 'hd-pager-prev"? href="?[^" >]*/docs/getting-started/' "pager Previous points up the menu"
+assert_contains "$PAGERPAGE" 'hd-pager-next"? href="?[^" >]*/docs/landing-page/'    "pager Next points down the menu"
+
 echo "== shortcodes =="
 assert_contains "$OUT/docs/shortcodes/index.html"            'class="?hd-card'      "shortcode gallery cards"
 assert_contains "$OUT/docs/shortcodes/hint/index.html"       'hd-hint--warning'     "hint renders styles"
