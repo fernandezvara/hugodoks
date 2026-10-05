@@ -1,4 +1,4 @@
-<dialog id="hd-search-dialog" aria-label="{{ i18n "search" | default "Search" }}">
+<dialog id="hd-search-dialog" data-index-url="{{ "index.json" | relURL }}" aria-label="{{ i18n "search" | default "Search" }}">
   <article>
     <header>
       <input id="hd-search-input" type="search" placeholder="{{ i18n "searchPlaceholder" | default "Search documentation…" }}" aria-label="{{ i18n "search" | default "Search" }}" autocomplete="off">

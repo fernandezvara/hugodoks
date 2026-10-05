@@ -45,6 +45,7 @@ assert_contains "$OUT/index.html" 'class="?hd-hero'            "hero section ren
 assert_contains "$OUT/index.html" 'docs/getting-started/'     "hero CTA links to getting started"
 assert_contains "$OUT/index.html" 'class="?hd-feature'        "feature grid renders"
 assert_contains "$OUT/index.html" 'hd-search-dialog'          "search dialog present"
+assert_contains "$OUT/index.html" 'data-index-url="?/hugodoks/index.json' "search index URL is baseURL-aware"
 assert_contains "$OUT/index.html" 'id=hd-theme-toggle'        "theme toggle present"
 assert_contains "$OUT/index.html" 'id=hd-search-open'         "search trigger present"
 assert_contains "$OUT/index.html" 'class="?hd-footer'         "footer renders"

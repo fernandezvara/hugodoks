@@ -13,7 +13,7 @@
 
   function load() {
     if (index) return Promise.resolve();
-    return fetch("/index.json")
+    return fetch(dialog.dataset.indexUrl || "/index.json")
       .then(function (r) { return r.json(); })
       .then(function (data) {
         docs = data;
