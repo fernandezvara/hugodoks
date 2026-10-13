@@ -63,6 +63,11 @@ fi
 echo "== docs section =="
 assert_contains "$OUT/docs/index.html" 'class="?hd-sidebar'   "left sidebar present"
 assert_contains "$OUT/docs/index.html" '<details'             "collapsible nav sections"
+assert_contains "$OUT/docs/index.html" 'details name="?hd-nav-' "nav groups share exclusive-accordion names"
+# sibling groups under the same parent share one name (baseURL may add a subpath),
+# so expanding one collapses the others
+[ "$(grep -oE 'name="?hd-nav-[^" >]*' "$OUT/docs/index.html" | sort | uniq -d | wc -l)" -ge 1 ] \
+  && ok "sibling nav groups share one exclusive name" || fail "sibling nav groups share one exclusive name"
 assert_contains "$OUT/docs/index.html" 'class="?hd-card'      "section cards on _index"
 assert_contains "$OUT/docs/index.html" 'hd-toc'               "TOC on page with toc: true"
 assert_contains "$OUT/docs/index.html" 'On this page'         "TOC heading rendered"
@@ -74,7 +79,7 @@ assert_contains "$LEAF" 'hd-ai-dropdown'                      "AI assist dropdow
 assert_contains "$LEAF" 'hd-ai-dropdown"><summary><svg class="hd-icon"' "AI assist icon rendered"
 assert_contains "$LEAF" 'chatgpt.com/\?q='                    "ChatGPT prefilled link"
 assert_contains "$LEAF" 'claude.ai/new\?q='                   "Claude prefilled link"
-assert_contains "$LEAF" '<details open'                       "ancestor section auto-open"
+assert_contains "$LEAF" '<details[^>]* open'                  "ancestor section auto-open"
 assert_contains "$LEAF" 'class="?active'                      "active page highlighted in nav"
 assert_contains "$LEAF" 'class="?hd-pager'                    "prev/next pager"
 assert_contains "$LEAF" 'Edit this page'                      "edit-page link"
@@ -135,6 +140,16 @@ ls "$OUT"/js/hugodoks.*.js    >/dev/null 2>&1 && ok "fingerprinted JS"   || fail
 JS="$OUT/$(grep -oE 'js/hugodoks[^"]*\.js' "$OUT/index.html" | head -1)"
 assert_contains "$JS" 'hd-copy'                              "copy button script bundled"
 [ -f "$OUT/404.html" ]       && ok "404 page built"           || fail "404 page built"
+
+echo "== mermaid diagrams =="
+FEATURES="$OUT/docs/features/index.html"
+assert_contains "$FEATURES" '<pre class="?mermaid'           "mermaid block renders as pre.mermaid"
+assert_contains "$FEATURES" 'graph LR'                       "mermaid source preserved"
+assert_absent   "$FEATURES" 'language-mermaid'               "mermaid block skips Chroma highlighting"
+assert_contains "$FEATURES" 'js/mermaid-bundle[^"]*\.js'     "mermaid bundle loaded on diagram pages"
+assert_absent   "$OUT/index.html" 'mermaid-bundle'           "mermaid bundle skipped on other pages"
+MERMAID_JS="$OUT/$(grep -oE 'js/mermaid-bundle[^"]*\.js' "$FEATURES" | head -1)"
+assert_contains "$MERMAID_JS" 'mermaid.initialize'           "init script bundled with mermaid"
 
 echo "== build with exampleurl =="
 build -e HUGO_PARAMS_EXAMPLEURL="https://localhost:8443/example/" || { echo "build failed"; exit 1; }

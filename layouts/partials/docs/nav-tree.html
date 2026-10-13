@@ -7,7 +7,12 @@
     {{ if .IsSection -}}
       {{ $open := or (eq .RelPermalink $current.RelPermalink) (.IsAncestor $current) }}
       <li>
-        <details{{ if $open }} open{{ end }}>
+        {{/* Exclusive accordion: the name groups sibling sections under the
+            same parent, so opening one group natively collapses the others.
+            Nested levels get their own group (keyed to their parent), so
+            cousins in other branches stay independent. Older browsers simply
+            keep every group independently toggleable. */}}
+        <details name="hd-nav-{{ $section.RelPermalink }}"{{ if $open }} open{{ end }}>
           <summary>
             {{ with .Params.icon }}{{ partial "hd-icon.html" . }}{{ end }}
             {{ .Title }}

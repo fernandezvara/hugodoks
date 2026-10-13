@@ -1,0 +1,7 @@
+{{/* Mermaid diagrams: emit the raw source in a <pre class="mermaid"> so the
+     vendored mermaid.js can render it client-side. Flags the page so
+     body-end.html only ships the (large) library when needed. */}}
+{{- .Page.Store.Set "hasMermaid" true -}}
+<pre class="mermaid overflow-auto">
+  {{- .Inner | safeHTML -}}
+</pre>

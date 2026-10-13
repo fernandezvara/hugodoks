@@ -305,6 +305,16 @@ html.hd-toc-hidden .hd-toc-toggle svg {
   overflow-x: auto;
 }
 
+/* mermaid diagrams: rendered SVG scales to the block and stays centered */
+.hd-article pre.mermaid {
+  text-align: center;
+}
+
+.hd-article pre.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
 /* ------- code copy button (js/copy.js) ------- */
 
 .hd-article .highlight,

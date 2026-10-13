@@ -13,7 +13,7 @@ A tour of what hugodoks renders for every docs site, and the switches that contr
 Pages under `params.docs.navRoot` (default `/docs`) become the left sidebar:
 
 - Leaf pages and sections sort by `weight`; a page's `icon` shows next to its title.
-- Directories with `_index.md` render as collapsible `<details>` groups that auto-open on the active page, each with an **Overview** link to the section page.
+- Directories with `_index.md` render as collapsible `<details>` groups that auto-open on the active page, each with an **Overview** link to the section page. Sibling groups are mutually exclusive — opening one collapses the others (native `<details name>` accordion; older browsers keep them independently toggleable).
 - The current page is highlighted and marked `aria-current="page"`.
 - Below 768px the sidebar becomes an off-canvas drawer opened by the header's hamburger button.
 
@@ -36,6 +36,17 @@ The header toggle flips Pico's `data-theme` attribute; the choice persists in `l
 ## Code blocks
 
 Every code block gets a **Copy** button in its top-right corner (visible on hover or keyboard focus, always on touch screens). It copies the block's plain text — line numbers excluded — through the Clipboard API, with a fallback for non-secure contexts, and announces the result to screen readers. Without JavaScript, code blocks are plain blocks. The labels come from the `copyCode`, `copiedCode` and `copyFailed` i18n keys.
+
+## Diagrams
+
+Fenced code blocks tagged `mermaid` render as [Mermaid](https://mermaid.js.org/) diagrams. The library is vendored and only loads on pages that contain a diagram, and diagrams re-render when the light/dark theme flips. The **Copy** button still copies the diagram source.
+
+```mermaid
+graph LR
+  A[Markdown] --> B[Hugo]
+  B --> C[hugodoks]
+  C --> D{Docs site}
+```
 
 ## Page chrome
 

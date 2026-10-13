@@ -8,6 +8,16 @@
 {{ $js := slice $theme $tabs $copy $toc $flex $search | resources.Concat "js/hugodoks.js" | minify | fingerprint }}
 <script src="{{ $js.RelPermalink }}"{{ with $js.Data.Integrity }} integrity="{{ . }}"{{ end }} defer></script>
 
+{{/* Mermaid: only on pages with mermaid code blocks (flag set by
+     render-codeblock-mermaid.html). The library is ~3 MB, so it ships as a
+     separate bundle. */}}
+{{ if .Store.Get "hasMermaid" -}}
+{{ $mermaidLib := resources.Get "js/lib/mermaid.min.js" }}
+{{ $mermaidInit := resources.Get "js/mermaid.js" }}
+{{ $mermaid := slice $mermaidLib $mermaidInit | resources.Concat "js/mermaid-bundle.js" | minify | fingerprint }}
+<script src="{{ $mermaid.RelPermalink }}"{{ with $mermaid.Data.Integrity }} integrity="{{ . }}"{{ end }} defer></script>
+{{ end -}}
+
 <template id="hd-copy-i18n" data-copy="{{ i18n "copyCode" | default "Copy" }}" data-copied="{{ i18n "copiedCode" | default "Copied" }}" data-failed="{{ i18n "copyFailed" | default "Copy failed" }}"></template>
 
 {{ partial "search-modal.html" . }}
