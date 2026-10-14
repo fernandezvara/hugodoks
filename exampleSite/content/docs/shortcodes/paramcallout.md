@@ -1,7 +1,7 @@
 ---
 title: "paramcallout"
 description: "A callout that renders only when a named site param is set."
-icon: "vpn_key"
+icon: "key"
 weight: 90
 toc: true
 ---
@@ -10,7 +10,7 @@ toc: true
 
 Use it for "a live demo is running" notes on pages that describe one: deploy previews inject the URL at build time, and the callout simply isn't there in builds without it.
 
-{{< paramcallout param="exampleurl" icon="apps" >}}A live deployment was configured for this build — open it{{< /paramcallout >}}
+{{< paramcallout param="exampleurl" icon="squares-four" >}}A live deployment was configured for this build — open it{{< /paramcallout >}}
 
 {{< hint info >}}
 Nothing rendered above? That's the feature working: this build has no `exampleurl` param. Rebuild with `HUGO_PARAMS_EXAMPLEURL="https://example.com"` to see it — the theme's own test suite asserts both cases.
@@ -19,7 +19,7 @@ Nothing rendered above? That's the feature working: this build has no `exampleur
 ## Source
 
 ```markdown
-{{</* paramcallout param="exampleurl" icon="apps" */>}}
+{{</* paramcallout param="exampleurl" icon="squares-four" */>}}
 A live deployment was configured for this build — open it
 {{</* /paramcallout */>}}
 ```

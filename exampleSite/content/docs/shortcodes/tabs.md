@@ -1,7 +1,7 @@
 ---
 title: "tabs"
 description: "Tabbed panels for variants — platforms, package managers, languages."
-icon: "folder_open"
+icon: "folder-open"
 weight: 60
 toc: true
 ---

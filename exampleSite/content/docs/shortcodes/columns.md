@@ -1,7 +1,7 @@
 ---
 title: "columns"
 description: "Side-by-side content columns built on Pico's .grid."
-icon: "apps"
+icon: "squares-four"
 weight: 40
 toc: true
 ---

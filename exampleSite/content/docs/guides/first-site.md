@@ -1,7 +1,7 @@
 ---
 title: "Your first docs site"
 description: "Minimal walkthrough: mount the theme, add content, serve."
-icon: "rocket_launch"
+icon: "rocket-launch"
 weight: 10
 toc: true
 ---

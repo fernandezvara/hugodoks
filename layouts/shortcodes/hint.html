@@ -17,7 +17,7 @@
 {{- if not (in (slice "info" "note" "tip" "warning" "danger" "success") $style) -}}
   {{- $style = "info" -}}
 {{- end -}}
-{{- $icon := index (dict "info" "info" "note" "info" "tip" "tip" "warning" "warning" "danger" "danger" "success" "success") $style -}}
+{{- $icon := index (dict "info" "info" "note" "note" "tip" "lightbulb" "warning" "warning" "danger" "x-circle" "success" "check-circle") $style -}}
 <aside class="hd-hint hd-hint--{{ $style }}">
   <p class="hd-hint-title">{{ partial "hd-icon.html" $icon }}{{ $title | default ($style | title) }}</p>
   {{ .Inner | markdownify }}

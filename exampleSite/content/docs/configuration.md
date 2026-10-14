@@ -1,7 +1,7 @@
 ---
 title: "Configuration"
 description: "Site params, menus and build settings hugodoks understands."
-icon: "settings"
+icon: "gear-six"
 weight: 200
 toc: true
 ---
@@ -33,9 +33,9 @@ Everything below goes in your site's `hugo.toml` (or the YAML/JSON equivalent). 
 | `params.docs.repoBranch` | `main` | Branch used in edit links |
 | `params.docs.repoContentDir` | `content` | Directory inside the repo that holds content files |
 | `params.docs.aiAssist` | `false` | Show an "Ask AI" dropdown in docs article headers with prefilled ChatGPT/Claude links to the page |
-| `params.docs.aiAssistIcon` | — | Icon in the dropdown button: a name from the icon dictionary (e.g. `auto_awesome`) or a path to an `.svg` in `assets/` |
+| `params.docs.aiAssistIcon` | — | Icon in the dropdown button: a [Phosphor](https://phosphoricons.com) name (e.g. `sparkle`) |
 | `params.docs.aiAssistLabel` | "Ask AI" | Text of the dropdown button |
-| `params.brand.icon` | — | Optional icon next to the site title: a name from the icon dictionary (e.g. `book`) or a path to an `.svg` in `assets/` |
+| `params.brand.icon` | — | Optional icon next to the site title: a [Phosphor](https://phosphoricons.com) name (e.g. `book`) or a path to an `.svg` in `assets/` |
 | `params.footer.copyright` | — | Footer line, rendered as Markdown |
 | `params.social.github` | — | `owner/repo` shown on the home page |
 
@@ -84,7 +84,7 @@ The header renders the `primary` menu plus the built-in search trigger and theme
 |---|---|
 | `title` | Page heading, sidebar label, search result title |
 | `description` | Shown under the title, in section cards and in search results |
-| `icon` | Icon from the theme's dictionary, shown in the sidebar and cards |
+| `icon` | [Phosphor](https://phosphoricons.com) icon name, shown in the sidebar and cards — see [Icons](../shortcodes/icons/) |
 | `weight` | Order in the sidebar and the prev/next pager |
 | `toc` | `true` renders the right-hand table of contents |
 

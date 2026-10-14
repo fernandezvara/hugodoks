@@ -17,6 +17,11 @@ if (localStorage.getItem("hugodoks-toc") === "hidden") document.documentElement.
 {{ $css := slice $pico $chromaLight $chromaDark $custom | resources.Concat "css/hugodoks.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}"{{ with $css.Data.Integrity }} integrity="{{ . }}"{{ end }}>
 
+{{/* Phosphor icon font (regular weight): own link so relative font URLs
+     resolve next to the vendored fonts under static/vendor/phosphor/. */}}
+{{ $phosphor := resources.Get "vendor/phosphor/regular/style.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $phosphor.RelPermalink }}"{{ with $phosphor.Data.Integrity }} integrity="{{ . }}"{{ end }}>
+
 {{/* RSS */}}
 {{ with .OutputFormats.Get "rss" -}}
 <link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" href="{{ .RelPermalink }}">

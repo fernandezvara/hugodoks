@@ -1,7 +1,7 @@
 ---
 title: "Getting started"
 description: "Install hugodoks in a new Hugo project and publish your first docs page."
-icon: "rocket_launch"
+icon: "rocket-launch"
 weight: 100
 toc: true
 ---
@@ -84,7 +84,7 @@ hugo new docs/getting-started.md
 ---
 title: "Getting started"
 description: "One line shown in cards, search results and meta tags."
-icon: "rocket_launch"
+icon: "rocket-launch"
 weight: 100
 toc: true
 ---

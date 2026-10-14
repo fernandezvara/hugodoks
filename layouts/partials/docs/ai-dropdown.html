@@ -2,7 +2,7 @@
        links pointing at the current page. Uses Pico's details.dropdown —
        native <details>, no JS. Params (all under docs):
          aiAssist      — show the dropdown
-         aiAssistIcon  — icon dictionary name or .svg path in assets/ (optional)
+         aiAssistIcon  — Phosphor icon name, e.g. "sparkle" (optional)
          aiAssistLabel — summary text (defaults to i18n aiAssist = "Ask AI") */ -}}
 {{- if site.Params.docs.aiAssist -}}
 {{- $prompt := printf "Read this page and answer my questions: %s" .Permalink -}}
@@ -10,11 +10,7 @@
 <details class="dropdown hd-ai-dropdown">
   <summary>
     {{- with site.Params.docs.aiAssistIcon }}
-      {{- if strings.HasSuffix . ".svg" }}
-        {{- with resources.Get . }}<img class="hd-icon" src="{{ .RelPermalink }}" alt="">{{ end }}
-      {{- else }}
-        {{- partial "hd-icon.html" . }}
-      {{- end }}
+      {{- partial "hd-icon.html" . }}
     {{- end }}
     {{ $label }}
   </summary>

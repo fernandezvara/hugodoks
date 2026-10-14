@@ -1,7 +1,7 @@
 ---
 title: "Guides"
 description: "Task-oriented walkthroughs for common docs setups."
-icon: "checklist"
+icon: "list-checks"
 weight: 400
 toc: false
 ---

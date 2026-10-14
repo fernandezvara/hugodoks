@@ -1,7 +1,7 @@
 ---
 title: "Documentation"
 description: "What hugodoks is, and how this site is organized."
-icon: "home"
+icon: "house"
 weight: 1
 toc: true
 ---
@@ -21,7 +21,7 @@ Pages under `content/docs/` form the documentation tree you see in the left side
 - **Ordering** — `weight` in front matter sorts pages and sections in the sidebar and the prev/next pager.
 - **Sections** — a directory with `_index.md` becomes a collapsible group in the sidebar (like [Shortcodes](shortcodes/)) and renders its children as icon cards.
 - **Table of contents** — `toc: true` enables the right-hand TOC, built from `h2`/`h3` headings.
-- **Descriptions and icons** — `description` feeds section cards and meta tags; `icon` picks an icon from the theme's built-in dictionary for the sidebar and cards.
+- **Descriptions and icons** — `description` feeds section cards and meta tags; `icon` takes any [Phosphor](https://phosphoricons.com) icon name for the sidebar and cards — see [Icons](shortcodes/icons/).
 
 ## Status
 

@@ -1,7 +1,7 @@
 ---
 title: "steps"
 description: "A numbered step list with accent markers, for procedures."
-icon: "checklist"
+icon: "list-checks"
 weight: 50
 toc: true
 ---

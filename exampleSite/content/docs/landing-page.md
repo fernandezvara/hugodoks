@@ -1,7 +1,7 @@
 ---
 title: "Landing page"
 description: "Compose the home page from data/landing.yaml — no templates needed."
-icon: "apps"
+icon: "squares-four"
 weight: 300
 toc: true
 ---
@@ -31,7 +31,7 @@ hero:
   subtitle: "A **Markdown** subtitle, rendered inline."
   cta:
     - text: "Get started"
-      icon: rocket_launch
+      icon: "rocket-launch"
       url: "docs/getting-started/"
     - text: "GitHub"
       icon: code
@@ -41,7 +41,7 @@ hero:
   info: "**Open source**, MIT licensed."
 ```
 
-CTA `style` maps to Pico button variants; `icon` uses the theme's icon dictionary.
+CTA `style` maps to Pico button variants; `icon` takes any [Phosphor](https://phosphoricons.com) icon name — see [Icons](../shortcodes/icons/).
 
 ## Features
 
@@ -54,7 +54,7 @@ features:
   subtitle: "Rendered as Markdown."
   items:
     - title: Client-side search
-      icon: search
+      icon: "magnifying-glass"
       description: "FlexSearch over a build-time index."
 ```
 

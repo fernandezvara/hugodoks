@@ -1,7 +1,7 @@
 ---
 title: "annotated"
 description: "A code block followed by a numbered annotation list."
-icon: "description"
+icon: "file-text"
 weight: 70
 toc: true
 ---

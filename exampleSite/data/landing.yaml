@@ -14,7 +14,7 @@ sections:
 
     cta:
       - text: "Get started"
-        icon: rocket_launch
+        icon: rocket-launch
         url: "docs/getting-started/"
       - text: "Shortcode gallery"
         icon: code
@@ -40,7 +40,7 @@ sections:
     text: "**A live deployment URL was configured at build time.** This banner only renders because the `exampleurl` site param is set — see `paramcallout` for the same trick inside pages."
     cta:
       text: "Open it"
-      icon: rocket_launch
+      icon: rocket-launch
       # url defaults to the value of only_when_param
 
   features:
@@ -57,19 +57,19 @@ sections:
         description: "Semantic, mostly classless styling out of the box. Customize the whole look by overriding `--pico-*` CSS variables — no utility classes, no other framework."
 
       - title: Three-column docs layout
-        icon: account_tree
+        icon: tree-structure
         description: "Sticky navigation tree on the left, article in the center, an \"On this page\" TOC on the right. Sidebars collapse into a drawer under 768px."
 
       - title: Collapsible nav sections
-        icon: folder_open
+        icon: folder-open
         description: "Content sections become `<details>` accordions that auto-open on the active page. Order by `weight`, label icons from front matter."
 
       - title: Client-side search
-        icon: search
+        icon: magnifying-glass
         description: "A FlexSearch-powered modal (Ctrl K) over an `index.json` generated at build time. No server, no external service."
 
       - title: Dark and light themes
-        icon: settings
+        icon: gear-six
         description: "Follows `prefers-color-scheme`, toggled via Pico's `data-theme` attribute and persisted in `localStorage` — no flash of wrong theme."
 
       - title: Nine docs shortcodes
@@ -77,7 +77,7 @@ sections:
         description: "Hints, buttons, tabs, steps, columns, annotated code, page-link cards, type badges and conditional callouts — all Pico-flavored."
 
       - title: Landing pages from YAML
-        icon: apps
+        icon: squares-four
         description: "Compose the home page from `data/landing.yaml`: hero, feature grid and banner sections ordered by weight, no templates to touch."
 
       - title: No Node.js toolchain

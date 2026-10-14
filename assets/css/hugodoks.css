@@ -41,12 +41,40 @@
   width: auto;
 }
 
+/* Phosphor font glyph — sized relative to surrounding text; the font's own
+   em-box padding keeps it optically centered on the baseline */
 .hd-icon {
-  width: 1.1em;
-  height: 1.1em;
-  vertical-align: -0.18em;
+  font-size: 1.1em;
+  line-height: 1;
+  vertical-align: middle;
   display: inline-block;
   flex: none;
+}
+
+/* icon gallery ({{< icons >}} shortcode): every glyph + its name */
+.hd-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.hd-icon-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.75rem 0.25rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--pico-border-radius);
+  font-size: 1.5rem;
+}
+
+.hd-icon-cell code {
+  font-size: 0.7rem;
+  padding: 0 0.25rem;
+  text-align: center;
+  word-break: break-all;
 }
 
 .hd-iconbtn {

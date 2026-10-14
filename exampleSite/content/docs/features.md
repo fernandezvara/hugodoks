@@ -1,7 +1,7 @@
 ---
 title: "Features"
 description: "Navigation, search, table of contents, themes and every other built-in."
-icon: "search"
+icon: "magnifying-glass"
 weight: 400
 toc: true
 ---
@@ -53,6 +53,8 @@ graph LR
 - **Prev/next pager** — links to the previous and next pages within the same section, ordered by `weight`.
 - **Edit this page** — with `docs.editPage` and a `docs.repoURL`, every docs page links to its source file (GitHub, GitLab and Bitbucket URL layouts are detected); `docs.lastMod` adds a "Last updated" line.
 - **Section cards** — `_index.md` pages render their children as icon cards using each child's `icon` and `description`.
+- **Ask AI dropdown** — with `docs.aiAssist`, docs article headers get an "Ask AI" dropdown with prefilled ChatGPT/Claude links to the page; `docs.aiAssistIcon`/`aiAssistLabel` customize it.
+- **Icons** — the [Phosphor](https://phosphoricons.com) font (regular weight) is vendored; any icon name works in front matter, params, shortcodes and `{{ partial "hd-icon.html" "name" }}`. Browse them all on the [icons gallery](shortcodes/icons/).
 - **Heading anchors** — every rendered heading gets a hover anchor link for deep-linking.
 
 ## i18n and RSS

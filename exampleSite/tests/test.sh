@@ -76,7 +76,7 @@ assert_contains "$OUT/docs/index.html" 'hd-toc-toggle'        "TOC hide/show tog
 LEAF="$OUT/docs/shortcodes/hint/index.html"
 assert_contains "$LEAF" 'class="?hd-sidebar'                  "sidebar on leaf page"
 assert_contains "$LEAF" 'hd-ai-dropdown'                      "AI assist dropdown rendered"
-assert_contains "$LEAF" 'hd-ai-dropdown"><summary><svg class="hd-icon"' "AI assist icon rendered"
+assert_contains "$LEAF" 'hd-ai-dropdown"><summary><i class="?ph ph-sparkle' "AI assist icon rendered"
 assert_contains "$LEAF" 'chatgpt.com/\?q='                    "ChatGPT prefilled link"
 assert_contains "$LEAF" 'claude.ai/new\?q='                   "Claude prefilled link"
 assert_contains "$LEAF" '<details[^>]* open'                  "ancestor section auto-open"
@@ -150,6 +150,16 @@ assert_contains "$FEATURES" 'js/mermaid-bundle[^"]*\.js'     "mermaid bundle loa
 assert_absent   "$OUT/index.html" 'mermaid-bundle'           "mermaid bundle skipped on other pages"
 MERMAID_JS="$OUT/$(grep -oE 'js/mermaid-bundle[^"]*\.js' "$FEATURES" | head -1)"
 assert_contains "$MERMAID_JS" 'mermaid.initialize'           "init script bundled with mermaid"
+
+echo "== phosphor icons =="
+assert_contains "$OUT/index.html" 'vendor/phosphor/regular/style' "phosphor stylesheet linked"
+[ -f "$OUT/vendor/phosphor/regular/Phosphor.woff2" ] && ok "phosphor font published" || fail "phosphor font published"
+ICONS="$OUT/docs/shortcodes/icons/index.html"
+assert_contains "$ICONS" 'class="?hd-icon-grid'              "icon gallery grid rendered"
+assert_contains "$ICONS" 'ph-rocket-launch'                  "gallery includes rocket-launch glyph"
+[ "$(grep -oE 'ph-[a-z0-9-]+' "$ICONS" | sort -u | wc -l)" -gt 100 ] \
+  && ok "gallery lists the full icon set" || fail "gallery lists the full icon set"
+assert_contains "$LEAF" 'class="?ph ph-'                     "icons render as ph classes"
 
 echo "== build with exampleurl =="
 build -e HUGO_PARAMS_EXAMPLEURL="https://localhost:8443/example/" || { echo "build failed"; exit 1; }

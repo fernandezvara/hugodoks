@@ -1,7 +1,7 @@
 ---
 title: "types"
 description: "Inline data-type badges for parameter tables and signatures."
-icon: "integration_instructions"
+icon: "code-block"
 weight: 80
 toc: true
 ---
