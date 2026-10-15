@@ -13,6 +13,10 @@
 
 /* ------- header ------- */
 
+body>header {
+  padding-block: 0;
+}
+
 .hd-header {
   position: sticky;
   top: 0;
@@ -22,7 +26,17 @@
 }
 
 .hd-header nav {
-  padding-block: 0.4rem;
+  padding-block: 0;
+}
+
+.hd-header nav ul li {
+  display: inline-block;
+  margin: 0;
+  padding: 0.2em var(--pico-nav-element-spacing-horizontal);
+}
+
+.hd-header nav li :where(a,[role=link]) {
+    text-decoration: none;
 }
 
 .hd-brand {

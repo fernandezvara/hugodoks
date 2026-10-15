@@ -72,3 +72,13 @@
 /* GenericOutput */ html[data-theme="light"] .chroma .go { color:#1f2328 }
 /* GenericUnderline */ html[data-theme="light"] .chroma .gl { text-decoration:underline }
 /* TextWhitespace */ html[data-theme="light"] .chroma .w { color:#fff }
+html[data-theme="light"] :is(button,[type=submit],[type=button],[role=button]).outline, [type=reset].outline {
+    --pico-background-color: transparent;
+    --pico-color: #00000030;
+    --pico-border-color: #00000005;
+}
+html[data-theme="light"] :is(button,[type=submit],[type=button],[role=button]).outline:is(:hover,:focus,:active):not([aria-busy="true"]), [type=reset].outline:is(:hover,:focus,:active):not([aria-busy="true"]) {
+    --pico-background-color: transparent;
+    --pico-color: #00000030;
+    --pico-border-color: #00000030;
+}

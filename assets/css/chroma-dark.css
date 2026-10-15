@@ -77,3 +77,13 @@
 /* GenericTraceback */ html[data-theme="dark"] .chroma .gt { color:#ff7b72 }
 /* GenericUnderline */ html[data-theme="dark"] .chroma .gl { text-decoration:underline }
 /* TextWhitespace */ html[data-theme="dark"] .chroma .w { color:#6e7681 }
+html[data-theme="dark"] :is(button,[type=submit],[type=button],[role=button]).outline, [type=reset].outline {
+    --pico-background-color: transparent;
+    --pico-color: #ffffff30;
+    --pico-border-color: #ffffff05;
+}
+html[data-theme="dark"] :is(button,[type=submit],[type=button],[role=button]).outline:is(:hover,:focus,:active):not([aria-busy="true"]), [type=reset].outline:is(:hover,:focus,:active):not([aria-busy="true"]) {
+    --pico-background-color: transparent;
+    --pico-color: #ffffff30;
+    --pico-border-color: #ffffff30;
+}
