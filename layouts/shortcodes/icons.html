@@ -1,7 +1,7 @@
 {{- /* Icon gallery: renders every glyph in the vendored Phosphor font with
        its name, parsed from the font's own stylesheet so it always matches
        whatever version is vendored. Usage: {{< icons >}} */ -}}
-{{- $css := resources.Get "vendor/phosphor/regular/style.css" -}}
+{{- $css := resources.Get "fonts/phosphor/regular/style.css" -}}
 {{- $names := findRE `ph-([a-z0-9-]+):before` $css.Content | sort | uniq -}}
 <div class="hd-icon-grid">
   {{- range $names }}

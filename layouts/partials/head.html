@@ -18,8 +18,9 @@ if (localStorage.getItem("hugodoks-toc") === "hidden") document.documentElement.
 <link rel="stylesheet" href="{{ $css.RelPermalink }}"{{ with $css.Data.Integrity }} integrity="{{ . }}"{{ end }}>
 
 {{/* Phosphor icon font (regular weight): own link so relative font URLs
-     resolve next to the vendored fonts under static/vendor/phosphor/. */}}
-{{ $phosphor := resources.Get "vendor/phosphor/regular/style.css" | minify | fingerprint }}
+     resolve next to the vendored fonts under static/fonts/phosphor/.
+     Not `vendor/`: Go module zips drop directories with that name. */}}
+{{ $phosphor := resources.Get "fonts/phosphor/regular/style.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $phosphor.RelPermalink }}"{{ with $phosphor.Data.Integrity }} integrity="{{ . }}"{{ end }}>
 
 {{/* RSS */}}
