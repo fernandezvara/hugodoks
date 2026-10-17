@@ -34,6 +34,9 @@ title = "hugodoks"
   [params.docs]
     # Left sidebar nav root (defaults to /docs).
     # navRoot = "/docs"
+    # Fallback Phosphor icon for pages without `icon` in front matter.
+    # Set to "" to render an empty slot instead. Defaults to "dot".
+    # navDefaultIcon = "dot"
     editPage = true
     lastMod = true
     aiAssist = true

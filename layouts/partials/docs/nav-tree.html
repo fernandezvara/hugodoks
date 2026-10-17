@@ -9,13 +9,21 @@
 {{- $current := .current -}}
 <ul>
   {{ range $section.Pages.ByWeight -}}
+    {{/* nav icon: front matter `icon` > params.docs.navDefaultIcon > "dot".
+        Setting navDefaultIcon="" renders an empty slot instead. */ -}}
+    {{- $icon := .Params.icon -}}
+    {{- if and (not $icon) (isset site.Params.docs "navdefaulticon") -}}
+      {{- $icon = site.Params.docs.navDefaultIcon -}}
+    {{- else if not $icon -}}
+      {{- $icon = "dot" -}}
+    {{- end -}}
     {{ if .IsSection -}}
       {{ $open := or (eq .RelPermalink $current.RelPermalink) (.IsAncestor $current) }}
       <li>
         <details{{ if $open }} open{{ end }} data-hd-nav="{{ .RelPermalink }}">
           <summary>
             <a href="{{ .RelPermalink }}"{{ if eq .RelPermalink $current.RelPermalink }} class="active" aria-current="page"{{ end }}>
-              <span class="hd-nav-slot">{{- partial "hd-icon.html" (.Params.icon | default "dot") -}}</span>
+              <span class="hd-nav-slot{{ if not .Params.icon }} hd-nav-slot--default{{ end }}">{{- with $icon }}{{ partial "hd-icon.html" . }}{{ end -}}</span>
               {{- .Title -}}
               <i class="ph ph-caret-right hd-nav-caret" aria-hidden="true"></i>
             </a>
@@ -26,7 +34,7 @@
     {{ else -}}
       <li>
         <a href="{{ .RelPermalink }}"{{ if eq .RelPermalink $current.RelPermalink }} class="active" aria-current="page"{{ end }}>
-          <span class="hd-nav-slot">{{- partial "hd-icon.html" (.Params.icon | default "dot") -}}</span>
+          <span class="hd-nav-slot{{ if not .Params.icon }} hd-nav-slot--default{{ end }}">{{- with $icon }}{{ partial "hd-icon.html" . }}{{ end -}}</span>
           {{- .Title -}}
         </a>
       </li>

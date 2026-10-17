@@ -12,7 +12,7 @@ A tour of what hugodoks renders for every docs site, and the switches that contr
 
 Pages under `params.docs.navRoot` (default `/docs`) become the left sidebar:
 
-- Leaf pages and sections sort by `weight`; a page's `icon` shows next to its title.
+- Leaf pages and sections sort by `weight`; a page's `icon` shows next to its title. Pages without one get a fallback marker — `params.docs.navDefaultIcon` (default `dot`; set `""` for an empty slot).
 - Directories with `_index.md` render as collapsible `<details>` groups that auto-open on the active page. The section title links to its `_index` page; the caret toggles the group. Sibling groups stay open independently, like a file browser, and each group's open state persists in `localStorage` across page loads.
 - The current page is highlighted and marked `aria-current="page"`.
 - Below 768px the sidebar becomes an off-canvas drawer opened by the header's hamburger button.

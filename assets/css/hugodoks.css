@@ -252,8 +252,9 @@ html.hd-toc-hidden .hd-toc-toggle svg {
   text-align: center;
 }
 
-/* fallback marker for icon-less pages: a quiet small dot */
-.hd-nav-slot .ph-dot {
+/* fallback marker for icon-less pages (params.docs.navDefaultIcon):
+   quiet and small so it does not compete with real icons */
+.hd-nav-slot--default {
   font-size: 0.6em;
   opacity: 0.45;
 }
