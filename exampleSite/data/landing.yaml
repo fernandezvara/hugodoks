@@ -8,7 +8,7 @@ sections:
     weight: 10
     template: hero
 
-    badge: "v0.4.5 · a documentation theme for Hugo"
+    badge: "v0.4.6 · a documentation theme for Hugo"
     title: "hugodoks"
     subtitle: Documentation sites built on **Pico CSS v2**. A three-column docs layout with collapsible sidebar, client-side search, dark and light themes — and **no Node.js**, no build pipeline.
 

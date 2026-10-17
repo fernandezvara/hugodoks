@@ -252,6 +252,12 @@ html.hd-toc-hidden .hd-toc-toggle svg {
   text-align: center;
 }
 
+/* fallback marker for icon-less pages: a quiet small dot */
+.hd-nav-slot .ph-dot {
+  font-size: 0.6em;
+  opacity: 0.45;
+}
+
 /* Pico redefines --pico-color to --pico-primary on every anchor, so links
    cannot read the true text color via the variable — they must `inherit` it.
    --pico-primary is not redefined, so it stays safe on links. */

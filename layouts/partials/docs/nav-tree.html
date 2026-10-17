@@ -15,7 +15,7 @@
         <details{{ if $open }} open{{ end }} data-hd-nav="{{ .RelPermalink }}">
           <summary>
             <a href="{{ .RelPermalink }}"{{ if eq .RelPermalink $current.RelPermalink }} class="active" aria-current="page"{{ end }}>
-              <span class="hd-nav-slot">{{- with .Params.icon }}{{ partial "hd-icon.html" . }}{{ end -}}</span>
+              <span class="hd-nav-slot">{{- partial "hd-icon.html" (.Params.icon | default "dot") -}}</span>
               {{- .Title -}}
               <i class="ph ph-caret-right hd-nav-caret" aria-hidden="true"></i>
             </a>
@@ -26,7 +26,7 @@
     {{ else -}}
       <li>
         <a href="{{ .RelPermalink }}"{{ if eq .RelPermalink $current.RelPermalink }} class="active" aria-current="page"{{ end }}>
-          <span class="hd-nav-slot">{{- with .Params.icon }}{{ partial "hd-icon.html" . }}{{ end -}}</span>
+          <span class="hd-nav-slot">{{- partial "hd-icon.html" (.Params.icon | default "dot") -}}</span>
           {{- .Title -}}
         </a>
       </li>
