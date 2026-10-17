@@ -63,11 +63,12 @@ fi
 echo "== docs section =="
 assert_contains "$OUT/docs/index.html" 'class="?hd-sidebar'   "left sidebar present"
 assert_contains "$OUT/docs/index.html" '<details'             "collapsible nav sections"
-assert_contains "$OUT/docs/index.html" 'details name="?hd-nav-' "nav groups share exclusive-accordion names"
-# sibling groups under the same parent share one name (baseURL may add a subpath),
-# so expanding one collapses the others
-[ "$(grep -oE 'name="?hd-nav-[^" >]*' "$OUT/docs/index.html" | sort | uniq -d | wc -l)" -ge 1 ] \
-  && ok "sibling nav groups share one exclusive name" || fail "sibling nav groups share one exclusive name"
+assert_contains "$OUT/docs/index.html" 'ph-caret-right hd-nav-caret' "nav groups have a caret toggle"
+# file-browser nav: section titles are real links to their _index page
+assert_contains "$OUT/docs/index.html" '<summary><a href="?[^" >]*/docs/shortcodes/' "section title links to its index page"
+assert_absent   "$OUT/docs/index.html" 'details name="?hd-nav-' "nav groups open independently (no exclusive accordion)"
+assert_absent   "$OUT/docs/index.html" '>Overview<'           "no synthetic Overview nav rows"
+assert_contains "$OUT/docs/index.html" 'data-hd-nav="?/hugodoks/docs/' "nav groups carry storage key for persisted state"
 assert_contains "$OUT/docs/index.html" 'class="?hd-card'      "section cards on _index"
 assert_contains "$OUT/docs/index.html" 'hd-toc'               "TOC on page with toc: true"
 assert_contains "$OUT/docs/index.html" 'On this page'         "TOC heading rendered"
@@ -139,6 +140,7 @@ ls "$OUT"/css/hugodoks.*.css  >/dev/null 2>&1 && ok "fingerprinted CSS"  || fail
 ls "$OUT"/js/hugodoks.*.js    >/dev/null 2>&1 && ok "fingerprinted JS"   || fail "fingerprinted JS"
 JS="$OUT/$(grep -oE 'js/hugodoks[^"]*\.js' "$OUT/index.html" | head -1)"
 assert_contains "$JS" 'hd-copy'                              "copy button script bundled"
+assert_contains "$JS" 'hugodoks-nav'                         "sidebar state script bundled"
 [ -f "$OUT/404.html" ]       && ok "404 page built"           || fail "404 page built"
 
 echo "== mermaid diagrams =="

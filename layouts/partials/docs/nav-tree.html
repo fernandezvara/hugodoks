@@ -1,5 +1,10 @@
-{{- /* Recursive docs nav tree.
-       Expects dict: "section" (section Page), "current" (the rendered Page). */ -}}
+{{- /* Recursive docs nav tree, file-browser style.
+       Expects dict: "section" (section Page), "current" (the rendered Page).
+       Sections render as <details>: the summary holds a link to the section's
+       _index page plus a caret. Clicking the title navigates — the rendered
+       target page always has its ancestor sections open, so no JS is needed.
+       Clicking the caret toggles the group without navigating. Sibling groups
+       stay open independently (no exclusive accordion). */ -}}
 {{- $section := .section -}}
 {{- $current := .current -}}
 <ul>
@@ -7,27 +12,22 @@
     {{ if .IsSection -}}
       {{ $open := or (eq .RelPermalink $current.RelPermalink) (.IsAncestor $current) }}
       <li>
-        {{/* Exclusive accordion: the name groups sibling sections under the
-            same parent, so opening one group natively collapses the others.
-            Nested levels get their own group (keyed to their parent), so
-            cousins in other branches stay independent. Older browsers simply
-            keep every group independently toggleable. */}}
-        <details name="hd-nav-{{ $section.RelPermalink }}"{{ if $open }} open{{ end }}>
+        <details{{ if $open }} open{{ end }} data-hd-nav="{{ .RelPermalink }}">
           <summary>
-            {{ with .Params.icon }}{{ partial "hd-icon.html" . }}{{ end }}
-            {{ .Title }}
+            <a href="{{ .RelPermalink }}"{{ if eq .RelPermalink $current.RelPermalink }} class="active" aria-current="page"{{ end }}>
+              <span class="hd-nav-slot">{{- with .Params.icon }}{{ partial "hd-icon.html" . }}{{ end -}}</span>
+              {{- .Title -}}
+              <i class="ph ph-caret-right hd-nav-caret" aria-hidden="true"></i>
+            </a>
           </summary>
-          <ul>
-            <li><a href="{{ .RelPermalink }}"{{ if eq .RelPermalink $current.RelPermalink }} class="active" aria-current="page"{{ end }}>{{ i18n "overview" | default "Overview" }}</a></li>
-          </ul>
           {{ partial "docs/nav-tree.html" (dict "section" . "current" $current) }}
         </details>
       </li>
     {{ else -}}
       <li>
         <a href="{{ .RelPermalink }}"{{ if eq .RelPermalink $current.RelPermalink }} class="active" aria-current="page"{{ end }}>
-          {{- with .Params.icon }}{{ partial "hd-icon.html" . }} {{ end -}}
-          {{ .Title -}}
+          <span class="hd-nav-slot">{{- with .Params.icon }}{{ partial "hd-icon.html" . }}{{ end -}}</span>
+          {{- .Title -}}
         </a>
       </li>
     {{ end -}}

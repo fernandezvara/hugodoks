@@ -6,4 +6,4 @@ weight: 400
 toc: false
 ---
 
-Guides is a second top-level nav group: it exists mostly to demonstrate the sidebar's exclusive accordion — expanding **Guides** collapses **Shortcodes** and vice versa.
+Guides is a second top-level nav group: like a file browser, each folder expands on its own caret and stays open alongside the others — its title links here.

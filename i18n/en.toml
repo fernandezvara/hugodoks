@@ -4,9 +4,6 @@ other = "On this page"
 [docsNav]
 other = "Documentation"
 
-[overview]
-other = "Overview"
-
 [tocToggle]
 other = "Toggle table of contents"
 

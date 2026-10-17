@@ -209,14 +209,22 @@ html.hd-toc-hidden .hd-toc-toggle svg {
 }
 
 .hd-nav ul {
+  display: block; /* Pico sets `nav ul{display:flex}` for its navbar component */
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
 .hd-nav li {
-  margin: 0.5rem 0 0;
+  display: block; /* Pico sets `nav li{display:inline-block}` */
+  margin: 0.15rem 0 0;
   padding: 0;
+}
+
+/* Pico injects a floated marker pseudo into every nav li; it would overlap
+   the details/summary rows and skew row geometry */
+.hd-nav li::before {
+  content: none;
 }
 
 .hd-nav > ul > li:first-child,
@@ -224,23 +232,43 @@ html.hd-toc-hidden .hd-toc-toggle svg {
   margin-top: 0;
 }
 
+/* fixed-width icon slot: every row is icon + title (+ caret on sections),
+   so titles stay aligned when a page sets no icon */
+.hd-nav-slot {
+  flex: none;
+  width: 1.2em;
+  text-align: center;
+}
+
+/* Pico redefines --pico-color to --pico-primary on every anchor, so links
+   cannot read the true text color via the variable — they must `inherit` it.
+   --pico-primary is not redefined, so it stays safe on links. */
 .hd-nav a {
-  display: block;
-  padding: 0.4rem 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  margin: 0; /* Pico's `nav li a` uses a negative margin to bleed into li padding */
+  padding: 0.35rem 0.6rem;
   border-radius: var(--pico-border-radius);
   color: var(--pico-muted-color);
   text-decoration: none;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .hd-nav a:hover {
-  color: var(--pico-color);
   background-color: var(--pico-muted-border-color);
 }
 
-.hd-nav a.active {
+.hd-nav a.active,
+.hd-nav a.active:hover {
   color: var(--pico-primary);
+  font-weight: 600;
+}
+
+/* level-1 rows are the bold roots of the tree in the true text color;
+   deeper levels stay muted */
+.hd-nav > ul > li > a {
+  color: inherit;
   font-weight: 600;
 }
 
@@ -252,23 +280,39 @@ html.hd-toc-hidden .hd-toc-toggle svg {
   background: none;
 }
 
+/* summary is just a wrapper: the section link fills the whole row so its
+   padding, height and hover area are identical to leaf links. The caret
+   sits inside the link right after the title; nav.js intercepts caret
+   clicks to toggle without navigating. */
 .hd-nav details > summary {
-  display: flex; /* chevron ::after becomes a trailing item, pinned right */
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
+  display: flex;
+  padding: 0;
+  color: var(--pico-muted-color);
+  line-height: inherit;
   text-align: left;
-  padding: 0.4rem 0.7rem;
-  margin-top: 0.15rem;
-  border-radius: var(--pico-border-radius);
-  font-weight: 600;
-  color: var(--pico-color);
-  line-height: 1.4;
-  cursor: pointer;
 }
 
-.hd-nav details > summary:hover {
-  background-color: var(--pico-muted-border-color);
+/* Pico recolors open/focused accordion summaries at higher specificity —
+   hold the nav's own colors through those states */
+.hd-nav li details > summary:focus,
+.hd-nav li details[open] > summary:not(:focus) {
+  color: var(--pico-muted-color);
+}
+
+.hd-nav > ul > li > details > summary,
+.hd-nav > ul > li > details > summary:focus,
+.hd-nav > ul > li > details[open] > summary:not(:focus) {
+  color: inherit;
+  font-weight: 600;
+}
+
+.hd-nav details > summary::after {
+  display: none; /* we render our own Phosphor caret inside the link */
+}
+
+.hd-nav details > summary > a {
+  flex: 1;
+  color: inherit;
 }
 
 .hd-nav details[open] > summary {
@@ -276,12 +320,23 @@ html.hd-toc-hidden .hd-toc-toggle svg {
   border-bottom: 0;
 }
 
+.hd-nav-caret {
+  flex: none;
+  font-size: 0.9em;
+  margin-left: 0.5em;
+  transition: transform 0.15s ease-in-out;
+}
+
+.hd-nav details[open] > summary .hd-nav-caret {
+  transform: rotate(90deg);
+}
+
 .hd-nav details > ul {
-  padding-left: 0.9rem;
-  border-left: 1px solid var(--pico-muted-border-color);
-  margin-left: 0.75rem;
-  margin-top: 0.25rem;
-  margin-bottom: 0.75rem;
+  /* padding-left: 0.9rem; 
+  border-left: 1px solid var(--pico-muted-border-color); */
+  margin-left: 1.1rem;
+  margin-top: 0.15rem;
+  margin-bottom: 0.4rem;
 }
 
 /* mobile: sidebar becomes a drawer */

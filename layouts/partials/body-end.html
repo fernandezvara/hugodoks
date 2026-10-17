@@ -1,11 +1,12 @@
-{{/* JS at end of body: theme toggle, tabs, code copy buttons, TOC toggle, search modal */}}
+{{/* JS at end of body: theme toggle, tabs, code copy buttons, TOC toggle, sidebar state, search modal */}}
 {{ $theme := resources.Get "js/theme.js" }}
 {{ $tabs := resources.Get "js/tabs.js" }}
 {{ $copy := resources.Get "js/copy.js" }}
 {{ $toc := resources.Get "js/toc.js" }}
+{{ $nav := resources.Get "js/nav.js" }}
 {{ $search := resources.Get "js/search.js" }}
 {{ $flex := resources.Get "js/lib/flexsearch.min.js" }}
-{{ $js := slice $theme $tabs $copy $toc $flex $search | resources.Concat "js/hugodoks.js" | minify | fingerprint }}
+{{ $js := slice $theme $tabs $copy $toc $nav $flex $search | resources.Concat "js/hugodoks.js" | minify | fingerprint }}
 <script src="{{ $js.RelPermalink }}"{{ with $js.Data.Integrity }} integrity="{{ . }}"{{ end }} defer></script>
 
 {{/* Mermaid: only on pages with mermaid code blocks (flag set by
