@@ -145,6 +145,11 @@ html.hd-toc-hidden .hd-toc-toggle svg {
 .hd-toc {
   position: sticky;
   top: calc(var(--hd-header-height) + 1rem);
+  max-height: calc(100vh - var(--hd-header-height) - 2rem);
+  overflow-y: auto;
+  /* clip (not hidden): hidden still allows programmatic horizontal scroll */
+  overflow-x: clip;
+  overscroll-behavior: contain;
   font-size: 0.85rem;
 }
 
@@ -205,6 +210,13 @@ html.hd-toc-hidden .hd-toc-toggle svg {
 .hd-sidebar {
   position: sticky;
   top: calc(var(--hd-header-height) + 1rem);
+  /* the tree can be taller than the viewport — cap it and scroll inside
+     so bottom items stay reachable */
+  max-height: calc(100vh - var(--hd-header-height) - 2rem);
+  overflow-y: auto;
+  /* clip (not hidden): hidden still allows programmatic horizontal scroll */
+  overflow-x: clip;
+  overscroll-behavior: contain;
   font-size: 0.9rem;
 }
 
@@ -357,10 +369,12 @@ html.hd-toc-hidden .hd-toc-toggle svg {
     display: block;
   }
 
-  /* sidebar stacks above the article instead of becoming a drawer */
+  /* sidebar stacks above the article instead of becoming a drawer — no
+     inner scroll container: the page itself scrolls it */
   .hd-sidebar {
     position: static;
     max-height: none;
+    overflow: visible;
   }
 }
 

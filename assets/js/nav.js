@@ -34,6 +34,9 @@
     for (var d = active.closest("details"); d; d = d.parentElement.closest("details")) {
       d.open = true;
     }
+    // the sidebar scrolls internally (max-height + overflow-y): make sure
+    // the active link is not below the fold
+    active.scrollIntoView({ block: "nearest" });
   }
 
   // the caret lives inside the section link: clicking it toggles the group
