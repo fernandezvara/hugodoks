@@ -17,6 +17,10 @@ if (localStorage.getItem("hugodoks-toc") === "hidden") document.documentElement.
 {{ $css := slice $pico $chromaLight $chromaDark $custom | resources.Concat "css/hugodoks.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}"{{ with $css.Data.Integrity }} integrity="{{ . }}"{{ end }}>
 
+{{/* Palette overrides from params.style / params.cssvars — emitted after the
+     bundled stylesheet so they win by source order */}}
+{{ partial "style-vars.html" . }}
+
 {{/* Phosphor icon font (regular weight): own link so relative font URLs
      resolve next to the vendored fonts under static/fonts/phosphor/.
      Not `vendor/`: Go module zips drop directories with that name. */}}

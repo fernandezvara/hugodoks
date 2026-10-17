@@ -163,6 +163,20 @@ assert_contains "$ICONS" 'ph-rocket-launch'                  "gallery includes r
   && ok "gallery lists the full icon set" || fail "gallery lists the full icon set"
 assert_contains "$LEAF" 'class="?ph ph-'                     "icons render as ph classes"
 
+echo "== style params =="
+assert_absent "$OUT/index.html" '0f7b6c' "override color absent without the extra config"
+docker run --rm -v "$ROOT:/src" -w /src/exampleSite "$IMAGE" \
+  hugo --gc --minify --config hugo.toml,tests/style-override.toml >/dev/null \
+  || { echo "build failed"; exit 1; }
+assert_contains "$OUT/index.html" 'id="?hd-style-vars' "params emit the style block"
+assert_contains "$OUT/index.html" 'not\(\[data-theme="?dark"?\]\)' "light scope mirrors Pico's :not(dark) selector"
+assert_contains "$OUT/index.html" 'pico-primary:#0f7b6c' "params.style.primary derives the primary family"
+assert_contains "$OUT/index.html" 'pico-border-radius:0\.4rem' "cssvars pass through to both themes"
+assert_contains "$OUT/index.html" 'pico-primary:#9b59b6' "cssvars.dark scopes to the dark theme"
+assert_contains "$OUT/index.html" 'hd-hint-info:#123456' "hd-namespaced vars pass through"
+CSS="$OUT/$(grep -oE 'css/hugodoks[^"]*\.css' "$OUT/index.html" | head -1)"
+assert_contains "$CSS" 'hd-hint-info' "hint accent vars defined in bundle"
+
 echo "== build with exampleurl =="
 build -e HUGO_PARAMS_EXAMPLEURL="https://localhost:8443/example/" || { echo "build failed"; exit 1; }
 assert_contains "$OUT/index.html" 'hd-banner'                            "banner renders when exampleurl set"

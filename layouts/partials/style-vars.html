@@ -1,0 +1,54 @@
+{{- /* Inline <style> generated from site params — re-theme Pico without CSS.
+
+       params.style.primary     base color → derives the --pico-primary-* family
+                                for the light theme (hover, underline, focus…)
+       params.style.primaryDark same for the dark theme (falls back to primary)
+       params.cssvars           var names (without "--") → values, every theme
+       params.cssvars.light     same, light theme only
+       params.cssvars.dark      same, dark theme only
+
+       Selectors mirror Pico's own scoping ([data-theme], :root:not([data-theme]),
+       prefers-color-scheme) so the emitted rules win by source order: this
+       block is rendered after the bundled stylesheet in head.html. */ -}}
+{{- $style := site.Params.style | default dict -}}
+{{- $vars := site.Params.cssvars | default dict -}}
+{{- $lightV := $vars.light | default dict -}}
+{{- $darkV := $vars.dark | default dict -}}
+
+{{- /* vars applying to every theme scope */ -}}
+{{- $common := slice -}}
+{{- range $k, $v := $vars -}}
+  {{- if and (ne $k "light") (ne $k "dark") -}}
+    {{- $common = $common | append (printf "--%s:%s;" $k $v) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* light: primary family derived toward darker hover + light-only vars */ -}}
+{{- $lightD := $common -}}
+{{- with $style.primary -}}
+  {{- $lightD = $lightD | append (printf "--pico-primary:%[1]s;--pico-primary-background:%[1]s;--pico-primary-border:var(--pico-primary-background);--pico-primary-underline:color-mix(in srgb,%[1]s 50%%,transparent);--pico-primary-hover:color-mix(in srgb,%[1]s,#000 15%%);--pico-primary-hover-background:var(--pico-primary-hover);--pico-primary-hover-border:var(--pico-primary-hover-background);--pico-primary-hover-underline:var(--pico-primary-hover);--pico-primary-focus:color-mix(in srgb,%[1]s 25%%,transparent);" .) -}}
+{{- end -}}
+{{- range $k, $v := $lightV -}}
+  {{- $lightD = $lightD | append (printf "--%s:%s;" $k $v) -}}
+{{- end -}}
+
+{{- /* dark: primaryDark (or primary) family derived toward lighter hover + dark-only vars */ -}}
+{{- $darkD := $common -}}
+{{- with $style.primaryDark | default $style.primary -}}
+  {{- $darkD = $darkD | append (printf "--pico-primary:%[1]s;--pico-primary-background:%[1]s;--pico-primary-border:var(--pico-primary-background);--pico-primary-underline:color-mix(in srgb,%[1]s 50%%,transparent);--pico-primary-hover:color-mix(in srgb,%[1]s,#fff 20%%);--pico-primary-hover-background:var(--pico-primary-hover);--pico-primary-hover-border:var(--pico-primary-hover-background);--pico-primary-hover-underline:var(--pico-primary-hover);--pico-primary-focus:color-mix(in srgb,%[1]s 37.5%%,transparent);" .) -}}
+{{- end -}}
+{{- range $k, $v := $darkV -}}
+  {{- $darkD = $darkD | append (printf "--%s:%s;" $k $v) -}}
+{{- end -}}
+
+{{- if or $lightD $darkD }}
+<style id="hd-style-vars">
+  {{- if $lightD }}
+:root:not([data-theme="dark"]),[data-theme="light"]{ {{ delimit $lightD "" | safeCSS }} }
+  {{- end }}
+  {{- if $darkD }}
+[data-theme="dark"]{ {{ delimit $darkD "" | safeCSS }} }
+@media (prefers-color-scheme:dark){:root:not([data-theme]){ {{ delimit $darkD "" | safeCSS }} }}
+  {{- end }}
+</style>
+{{- end -}}

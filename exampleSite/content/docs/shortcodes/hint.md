@@ -16,6 +16,17 @@ toc: true
 
 Shortcode parameters are either all positional or all named, so a custom title needs `style="…"` too. Styles: `info` (default), `note`, `tip`, `warning`, `danger`, `success`; unknown styles fall back to `info`. The title defaults to the style's name.
 
+Accent colors are deliberately independent from `--pico-primary` — a red brand color won't make `info` look like `danger`. Each is overridable via [`params.cssvars`](../../configuration/#palette--css-variables):
+
+| Style | Variable | Default accent |
+|---|---|---|
+| `info` | `--hd-hint-info` | `#0195e0` (azure) |
+| `note` | `--hd-hint-note` | falls back to `--hd-hint-info` |
+| `warning` | `--hd-hint-warning` | `#d97706` (amber) |
+| `danger` | `--hd-hint-danger` | `#dc2626` (red) |
+| `success` | `--hd-hint-success` | `#16a34a` (green) |
+| `tip` | `--hd-hint-tip` | falls back to `--hd-hint-success` |
+
 ## Styles
 
 {{< hint note >}}

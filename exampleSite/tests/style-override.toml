@@ -1,0 +1,12 @@
+# Test fixture: merged on top of hugo.toml for the style-params build
+# (hugo --config hugo.toml,tests/style-override.toml). Asserts that
+# params.style / params.cssvars reach the <style id="hd-style-vars"> block.
+# Colors are deliberately different from the example site's own values.
+[params.style]
+  primary = "#0f7b6c"
+
+[params.cssvars]
+  pico-border-radius = "0.4rem"
+  hd-hint-info = "#123456"
+  [params.cssvars.dark]
+    pico-primary = "#9b59b6"

@@ -598,7 +598,8 @@ html.hd-toc-hidden .hd-toc-toggle svg {
   border: 1px solid var(--pico-muted-border-color);
   border-left: 0.3rem solid var(--hd-hint-color);
   border-radius: var(--pico-border-radius);
-  background-color: var(--pico-card-background-color);
+  /* accent color at 8% over the page background */
+  background-color: color-mix(in srgb, var(--hd-hint-color) 8%, transparent);
   font-size: 0.95rem;
 }
 
@@ -615,12 +616,12 @@ html.hd-toc-hidden .hd-toc-toggle svg {
   margin-bottom: 0.25rem;
 }
 
-.hd-hint--info,
-.hd-hint--note { --hd-hint-color: var(--pico-primary); }
-.hd-hint--warning { --hd-hint-color: var(--pico-color-amber-500, #d97706); }
-.hd-hint--danger { --hd-hint-color: var(--pico-color-red-500, #dc2626); }
-.hd-hint--success,
-.hd-hint--tip { --hd-hint-color: var(--pico-color-green-500, #16a34a); }
+.hd-hint--info    { --hd-hint-color: var(--hd-hint-info, #0195e0); }
+.hd-hint--note    { --hd-hint-color: var(--hd-hint-note, var(--hd-hint-info, #0195e0)); }
+.hd-hint--warning { --hd-hint-color: var(--hd-hint-warning, #d97706); }
+.hd-hint--danger  { --hd-hint-color: var(--hd-hint-danger, #dc2626); }
+.hd-hint--success { --hd-hint-color: var(--hd-hint-success, #16a34a); }
+.hd-hint--tip     { --hd-hint-color: var(--hd-hint-tip, var(--hd-hint-success, #16a34a)); }
 
 /* ------- steps ------- */
 
